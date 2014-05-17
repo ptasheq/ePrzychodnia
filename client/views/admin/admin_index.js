@@ -9,9 +9,6 @@ Template.adminIndex.events({
 			if (error) {
 				throwError('Podane dane logowania są błędne!');
 			}
-			else {
-				alert('Działa!');
-			}
 		});		
 	}
 });

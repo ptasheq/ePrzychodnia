@@ -10,3 +10,5 @@ body {
 .grey h1 {
 	margin-top: 0px;
 }
+
+#spinner { height: 300px }

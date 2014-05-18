@@ -18,7 +18,11 @@
       </div>
     </header>
     <div id="main" class="container" role="main">
+    {{#if siteReady}}
      {{> errors}}
 	   {{> yield}} 
+   {{else}}
+     {{> spinner}}
+    {{/if}}
 	</div>
 </template>

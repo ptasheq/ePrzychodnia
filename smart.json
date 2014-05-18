@@ -3,6 +3,7 @@
     "bootstrap-3": {},
     "iron-router": {},
     "roles": {},
-    "spin": {}
+    "spin": {},
+    "jquery-validation": {}
   }
 }

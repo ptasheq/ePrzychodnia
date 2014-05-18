@@ -1,9 +1,16 @@
 <template name="adminIndex">
     <div class="row grey">
-    	<div class="col-md-7">
+    	<div class="{{#if isInRole getRoles.Admin}}col-md-10 {{else}}col-md-7{{/if}}">
 	       <h1>Panel administracyjny</h1>
-	       <p>Witaj na stronie panelu administracyjnego systemu ePrzychodnia. Zaloguj się, aby skorzystać z oferowanych funkcji administracyjnych.</p>
+	       <p>Witaj na stronie panelu administracyjnego systemu ePrzychodnia. 
+           {{#if isInRole getRoles.Admin}}
+               Funkcje panelu są wymienione na pasku z linkami na górze strony.
+           {{else}}
+               Zaloguj się, aby skorzystać z oferowanych funkcji administracyjnych. {{bla}}
+            {{/if}}
+            </p>
     	</div>
+        {{#unless isInRole getRoles.Admin}}
     	<div class="col-md-5">
     		<form class="form-horizontal" role="form">
     			<div class="form-group">
@@ -24,5 +31,6 @@
     		</form>
 
     	</div>
+        {{/unless}}
      </div>
 </template>

@@ -1,9 +1,3 @@
-roles = Object.freeze({
-	Admin: 'admin',
-	Patient: 'patient',
-	Staff: 'staff'
-});
-
 if (Meteor.users.find().count() === 0) {
 	// we'll use it during development
 	var id = Accounts.createUser({email: 'admin@domain.com', password: 'admin!'}); 

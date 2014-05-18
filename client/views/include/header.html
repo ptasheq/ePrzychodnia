@@ -5,7 +5,7 @@
     {{else}} {{#if isPatientSite}}
       {{> patientHeader}}
     {{/if}}
-    {{#if isPatientSite}}
+    {{#if isStaffSite}}
       {{> staffHeader}}
   {{/if}}{{/if}}{{/if}}
 </template>
@@ -29,11 +29,11 @@
 </template>
 
 <template name="adminHeader">
-  {{#if currentUser}}
+  {{#if isInRole getRoles.Admin}}
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Zarządzaj personelem <b class="caret"></b></a>
       <ul class="dropdown-menu">
-        <li><a href="#">Dodaj pracownika</a></li>
+        <li><a href="{{pathFor 'addStaff'}}">Dodaj pracownika</a></li>
         <li><a href="#">Edytuj/usuń pracownika</a></li>
       </ul>
     </li>

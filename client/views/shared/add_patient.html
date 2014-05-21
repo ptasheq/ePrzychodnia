@@ -1,0 +1,100 @@
+<template name="addPatient">
+	<div class="container">
+		<div class="page-header">
+			<h1>Dodaj pacjenta</h1>
+		</div>
+		<form id="addPatient" class="form-horizontal" role="form">
+    			<div class="form-group">
+					<div class="col-sm-5">
+    					<input name="firstname" type="text" class="form-control" placeholder="Imię" required>
+    				</div>
+    			</div>
+    			<div class="form-group">
+					<div class="col-sm-5">
+    					<input name="lastname" type="text" class="form-control" placeholder="Nazwisko" required>
+    				</div>
+    			</div>
+    			
+    			<div class="form-group">
+					<div class="col-sm-5">
+    					<input name="pesel" type="text" class="form-control" placeholder="PESEL" required>
+    				</div>
+    			</div>
+                 <div class="form-group">
+                    <div class="col-sm-5">
+                        <select style="color: #919191" class="form-control" name="gender">
+                            <option style="color: #aaaaaa" value="-1">Wybierz płeć</option>
+                            <option value="1">Mężczyzna</option>
+                            <option value="2">Kobieta</option>
+                            <option value="0">Nieznana</option>
+                            <option value="9">Nie dotyczy</option>
+                        </select>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <input name="birth-date" type="text" class="form-control" placeholder="Data urodzenia YYYY-MM-DD" required>
+                    </div>
+                </div>  
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <input name="birth-place" type="text" class="form-control" placeholder="Miejsce urodzenia" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <input name="document-series" type="text" class="form-control" placeholder="Seria" required>
+                    </div>
+                    <div class="col-sm-3">
+                        <input name="document-number" type="text" class="form-control" placeholder="Numer dokumentu" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <input name="password" id="password" type="password" class="form-control" placeholder="Hasło" minlength="8" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <input name="password-confirm" equalto="#password" type="password" class="form-control" placeholder="Potwierdź hasło">
+                    </div>
+                </div>
+
+                <h4>Dane kontaktowe (nieobowiązkowe)</h4>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <input name="email" type="email" class="form-control" placeholder="Email">
+                    </div>
+                </div>
+               <div class="form-group">
+                    <div class="col-sm-5">
+                        <input name="phone" type="text" class="form-control" placeholder="Numer telefonu">
+                    </div>
+                </div>
+
+                <h4>Dane osoby do kontaktu w razie nagłego wypadku</h4>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <input name="trusted-firstname" type="text" class="form-control" placeholder="Imię" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <input name="trusted-lastname" type="text" class="form-control" placeholder="Nazwisko" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <input name="trusted-phone" type="text" class="form-control" placeholder="Numer telefonu">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <button type="submit" class="btn btn-primary">Dodaj pacjenta &raquo;</button>
+                    </div>
+                </div>
+
+    		</form>
+	</div>
+</template>

@@ -28,14 +28,15 @@ Meteor.methods({
 			throw new Meteor.Error(401, 'Aby wykonać tę akcję musisz mieć odpowiednie uprawnienia');
 		}
 
-		var validationRules = (user.profile.role === roles.Staff) ? staffValidationRules : null;
+		var validationRules = (user.profile.role === roles.Staff) ? staffValidationRules : {};
 		var currentRole = user.profile.role;
 		delete user.profile.role;
 		var userData = _.extend(_.pick(user, 'email'), user.profile);
 
 		for (var item in userData) {
-			// we have to check if we receive correct data from client
-			if (!validationRules[item] || !validationRules[item](userData[item])) {
+			// we have to check if we receive correct data from client, 
+			// undefined means there's no validation rule
+			if (validationRules[item] !== undefined && (!validationRules[item] || !validationRules[item](userData[item]))) {
 				throw new Meteor.Error(401, 'Formularz zawiera nieprawidłowe dane!');
 			}
 		}

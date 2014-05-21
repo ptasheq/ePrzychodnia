@@ -61,7 +61,8 @@ Template.addPatient.events({
 					username: $(e.target).find('[name=pesel]').val(),
 					password: $(e.target).find('[name=password]').val(),
 					profile: {
-						gender: $(e.target).find('[name=gender]').val()
+						gender: $(e.target).find('[name=gender]').val(),
+						role: roles.Patient	
 					}
 				};
 
@@ -69,7 +70,7 @@ Template.addPatient.events({
 					userData.email = $(e.target).find('[name=email]').val()
 				}
 
-				var loginInputs = '[name=pesel],[name=password],[name=email]';
+				var loginInputs = '[name=pesel],[name=password],[name=email],[name=password-confirm]';
 				var contactInputs = '[name=phone]';
 				var trustedInputs = '[name=trusted-firstname],[name=trusted-lastname],[name=trusted-phone]';
 				var inputs = $(e.target).find('input:not(' + loginInputs + ',' + contactInputs + ',' + trustedInputs + ')');
@@ -79,7 +80,6 @@ Template.addPatient.events({
 					}
 				}
 				inputs = $(e.target).find(contactInputs);
-				console.log(inputs.length);
 				userData.profile.contact = {};
 				for (var i = 0; i < inputs.length; ++i) {
 					if (inputs[i].value) {
@@ -87,13 +87,19 @@ Template.addPatient.events({
 					}
 				}
 				inputs = $(e.target).find(trustedInputs);
-				console.log(inputs.length);
 				userData.profile.trusted = {};
 				for (var i = 0; i < inputs.length; ++i) {
 					if (inputs[i].value) {
 						userData.profile.trusted[inputs[i].name.replace('-', '_')] = inputs[i].value;
 					}
 				}	
+				console.log(userData.email);
+				// @TODO security issue
+				Meteor.call('addNewUser', userData, function (error, result) {
+					if (error) {
+						throwError(error.reason);
+					}
+				});	
 			}
 		}
 

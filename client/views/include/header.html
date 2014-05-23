@@ -11,21 +11,16 @@
 </template>
 
 <template name="patientHeader">
-  <li class="active"><a href="#">Strona główna</a></li>
-  <li><a href="#about">Abut</a></li>
-  <li><a href="#contact">Contact</a></li>
+  <li class="active"><a href="{{pathFor 'patientIndex'}}">Strona główna</a></li>
+  {{#if isInRole getRoles.Patient}}
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Możliwe działania <b class="caret"></b></a>
     <ul class="dropdown-menu">
-      <li><a href="#">Action</a></li>
-      <li><a href="#">Another action</a></li>
-      <li><a href="#">Something else here</a></li>
-      <li class="divider"></li>
-      <li class="dropdown-header">Nav header</li>
-      <li><a href="#">Separated link</a></li>
-      <li><a href="#">One more separated link</a></li>
+      <li><a href="#">Uzupełnij dane kontaktowe</a></li>
+      <li><a href="#">Zapisz się do lekarza</a></li>
     </ul>
   </li>
+  {{/if}}
 </template>
 
 <template name="adminHeader">

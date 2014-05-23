@@ -5,12 +5,52 @@
 		</div>
 		<form role="form" id="showPatient" class="form-horizontal">
 			<div class="form-group">
-					<div class="col-sm-5"><input name="id" class="form-control" type="text" placeholder="Identyfikator"></div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-5"><input name="pesel" class="form-control" type="text" placeholder="PESEL"></div>
-				</div>	
-				<button class="btn btn-primary" type="submit">Wyszukaj pacjenta &raquo;</button>
+				<div class="col-sm-5"><input name="id" class="form-control" type="text" placeholder="Identyfikator"></div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-5"><input name="pesel" class="form-control" type="text" placeholder="PESEL"></div>
+			</div>	
+			<button class="btn btn-primary" type="submit" disabled>Wyszukaj pacjenta &raquo;</button>
 		</form>
 	</div>
+</template>
+
+<template name="patientsSearch">
+	{{#if patients}}
+		<table id="patientData" class="table table-striped table-bordered">
+			<tbody>
+				<tr>
+					<th>Identyfikator</th>
+					<th>Imię</th>
+					<th>Nazwisko</th>
+					<th>PESEL</th>
+					<th>Płeć</th>
+					<th>Wiek</th>
+					<th>Miejsce urodzenia</th>
+					<th>Dane dokumentu</th>
+					<th>Dane kontaktowe</th>
+					<th>Kogo poinformować?</th>
+				</tr>	
+				{{#each patients}}
+					{{> patientSearch}}
+				{{/each}}
+			</tbody>
+		</table>
+	{{/if}}
+</template>
+
+<template name="patientSearch">
+	<tr>
+		<td>{{_id}}</td>
+		<td>{{profile.firstname}}</td>
+		<td>{{profile.lastname}}</td>
+		<td>{{username}}</td>
+		<td>{{gender}}</td>
+		<td>{{age}}</td>
+		<td>{{profile.birth_place}}</td>
+		<td>{{profile.document_series}} {{profile.document_number}}</td>
+		<td><a role="button" data-content="Telefon: {{profile.contact.phone}} <br> Email: {{email}}" title="" data-toggle="popover" class="btn btn-default" href="#" data-original-title="Dane kontaktowe">Rozwiń</a></td>
+		<td><a role="button" data-content="Imię: {{profile.trusted.firstname}} <br> Nazwisko: {{profile.trusted.lastname}}<br>Telefon: {{profile.trusted.phone}}" title="" data-toggle="popover" class="btn btn-default" href="#" data-original-title="Kogo poinformować?">Rozwiń</a></td>
+		<td><button class="btn btn-default" type="button">Edytuj</button></td>
+	</tr>
 </template>

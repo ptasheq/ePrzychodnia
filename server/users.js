@@ -47,6 +47,7 @@ Meteor.methods({
 		Roles.addUsersToRoles(id, currentRole);
 		return true;
 	},
+
 	deleteUser: function(id) {
 		var currentUser = Meteor.user();
 		var userToDelete = Meteor.users.find({_id: id}, {fields: {'role': 1}});
@@ -55,8 +56,7 @@ Meteor.methods({
 		    && userToDelete.role !== roles.Staff)) {
 			throw new Meteor.Error(401, 'Aby wykonać tę akcję musisz mieć uprawnienia administratora');
 		}	
-		if (!currentUser || (!Roles.userIsInRole(currentUser, [roles.Admin]) 
-		    && userToDelete !== roles.Staff)) {
+		if (!Roles.userIsInRole(currentUser, [roles.Admin]) && userToDelete !== roles.Staff) {
 			throw new Meteor.Error(401, 'Aby wykonać tę akcję musisz mieć uprawnienia administratora');
 		}	
 

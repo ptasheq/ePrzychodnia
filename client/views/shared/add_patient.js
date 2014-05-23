@@ -11,18 +11,11 @@ Template.addPatient.rendered = function () {
 	});
 
 	$.validator.addMethod('pesel', function(pesel, element) {
-		if (pesel.length != 11 || !parseInt(pesel))
-			return false;
-
-		var controlVal = parseInt(pesel[0]) + 3 * parseInt(pesel[1]) + 7 * parseInt(pesel[2]) + 9 * parseInt(pesel[3])
-					   + parseInt(pesel[4]) + 3 * parseInt(pesel[5]) + 7 * parseInt(pesel[6]) + 9 * parseInt(pesel[7])
-					   + parseInt(pesel[8]) + 3 * parseInt(pesel[9]) + parseInt(pesel[10]);
-		return !(controlVal % 10);
+		return validatePesel(pesel);
 	});
 
 	$.validator.addMethod('pastDate', function(date, element) {
-		date = new Date(date);
-		return !!date && (new Date() - date) > 0;
+		return validateBirthDate(date);
 	});
 
 	$(".form-horizontal").validate({
@@ -31,7 +24,7 @@ Template.addPatient.rendered = function () {
 			pesel: {
 				pesel: true
 			},
-			birth_date: {
+			'birth-date': {
 				dateISO: true,
 				pastDate: true
 			},
@@ -90,7 +83,7 @@ Template.addPatient.events({
 				userData.profile.trusted = {};
 				for (var i = 0; i < inputs.length; ++i) {
 					if (inputs[i].value) {
-						userData.profile.trusted[inputs[i].name.replace('-', '_')] = inputs[i].value;
+						userData.profile.trusted[inputs[i].name.split('-')[1]] = inputs[i].value;
 					}
 				}	
 				console.log(userData.email);
@@ -103,5 +96,11 @@ Template.addPatient.events({
 			}
 		}
 
+	}
+});
+
+Template.addPatient.helpers({
+	gender: function () {
+		return genders;
 	}
 });

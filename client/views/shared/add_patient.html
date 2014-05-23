@@ -24,10 +24,10 @@
                     <div class="col-sm-5">
                         <select style="color: #919191" class="form-control" name="gender">
                             <option style="color: #aaaaaa" value="-1">Wybierz płeć</option>
-                            <option value="1">Mężczyzna</option>
-                            <option value="2">Kobieta</option>
-                            <option value="0">Nieznana</option>
-                            <option value="9">Nie dotyczy</option>
+                            <option value="{{gender.Male}}">Mężczyzna</option>
+                            <option value="{{gender.Female}}">Kobieta</option>
+                            <option value="{{gender.NotKnown}}">Nieznana</option>
+                            <option value="{{gender.NotApplicable}}">Nie dotyczy</option>
                         </select>
                     </div>
                 </div> 

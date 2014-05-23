@@ -12,3 +12,12 @@ body {
 }
 
 #spinner { height: 300px }
+
+#patientData {
+	margin-top: 25px;
+}
+
+#patientData td, #patientData th {
+	text-align: center;
+	vertical-align: middle;
+}

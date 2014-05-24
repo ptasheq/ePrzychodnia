@@ -27,7 +27,7 @@ var events = {
 Template.showPatient.rendered = function () {
 
 	$.validator.addMethod('pesel', function(pesel, element) {
-		return validatePesel(pesel);
+		return validationRules.pesel(pesel);
 	});
 
 	// A workaround that allows us to submit an invalidate form

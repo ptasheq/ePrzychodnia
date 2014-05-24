@@ -1,18 +1,3 @@
-var staffValidationRules = {
-	firstname: function(data) {
-		return data.length > 1;
-	},
-	lastname: function(data) {
-		return data.length > 1;
-	},
-	email: function(data) {
-		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	    return re.test(data);
-	},
-	profession: function(data) {
-		return data.length > 0;
-	}
-};
 
 Meteor.methods({
 	addNewUser: function(user) {
@@ -28,7 +13,6 @@ Meteor.methods({
 			throw new Meteor.Error(401, 'Aby wykonać tę akcję musisz mieć odpowiednie uprawnienia');
 		}
 
-		var validationRules = (user.profile.role === roles.Staff) ? staffValidationRules : {};
 		var currentRole = user.profile.role;
 		delete user.profile.role;
 		var userData = _.extend(_.pick(user, 'email'), user.profile);

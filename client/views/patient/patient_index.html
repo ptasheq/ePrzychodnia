@@ -8,10 +8,10 @@
             <div class="col-md-5">
                 <div class="col-sm-8">
                     {{#if hasContactData}}
-                        <a style="margin: 15px 0px 15px; width: 100%" href="#" class="btn btn-lg btn-info">Uzupełnij dane kontaktowe &raquo;</a> 
+                        <a style="margin: 15px 0px 15px; width: 100%" href="{{pathFor 'patientContact'}}" class="btn btn-lg btn-info">Uzupełnij dane kontaktowe &raquo;</a> 
                         <a style="width: 100%" href="#" class="btn btn-lg btn-primary">Zapisz się na wizytę &raquo;</a> 
                     {{else}}
-                        <a style="margin: 15px 0px 15px; width: 100%" href="#" class="btn btn-lg btn-primary">Uzupełnij dane kontaktowe &raquo;</a> 
+                        <a style="margin: 15px 0px 15px; width: 100%" href="{{pathFor 'patientContact'}}" class="btn btn-lg btn-primary">Uzupełnij dane kontaktowe &raquo;</a> 
                         <a style="width: 100%" href="#" class="btn btn-lg btn-primary" disabled>Zapisz się na wizytę &raquo;</a> 
                     {{/if}}
                 </div>

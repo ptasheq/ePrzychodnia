@@ -11,11 +11,11 @@ Template.addPatient.rendered = function () {
 	});
 
 	$.validator.addMethod('pesel', function(pesel, element) {
-		return validatePesel(pesel);
+		return validationRules.pesel(pesel);
 	});
 
 	$.validator.addMethod('pastDate', function(date, element) {
-		return validateBirthDate(date);
+		return validationRules.birthDate(date);
 	});
 
 	$(".form-horizontal").validate({

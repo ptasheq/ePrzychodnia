@@ -12,8 +12,16 @@ Template.patientVisit.rendered = function () {
 };
 
 Template.patientVisit.events({
-	'submit form': function () {
-		
+	'submit form': function (e) {
+		e.preventDefault();	
+		var physician = $(e.target).find('[name=physician]').val();
+		if (physician !== '-1') {
+			Meteor.call('askVisit', physician, function(error, result) {
+				if (error) {
+					throwError(error.reason);
+				}
+			});
+		}
 	}
 });
 
@@ -21,5 +29,15 @@ Template.patientVisit.helpers({
 	physicians: function () {
 		var userId = Meteor.userId();
 		return Users.find({_id: {$ne: Meteor.userId()}});
+	},
+	visits: function() {
+		var userId = Meteor.userId();
+		return Visits.find({});
+	}
+});
+
+Template.patientVisits.helpers({
+	 physicianData: function (id) {
+	 	return Users.findOne({_id: id});
 	}
 });

@@ -6,13 +6,13 @@
                 <p>Możesz teraz wybrać jedną z opcji za pomocą przycisków lub na pasku z linkami u góry strony.</p>
             </div>
             <div class="col-md-5">
-                <div class="col-sm-8">
+                <div class="col-sm-10">
                     {{#if hasContactData}}
                         <a style="margin: 15px 0px 15px; width: 100%" href="{{pathFor 'patientContact'}}" class="btn btn-lg btn-info">Uzupełnij dane kontaktowe &raquo;</a> 
-                        <a style="width: 100%" href="#" class="btn btn-lg btn-primary">Zapisz się na wizytę &raquo;</a> 
+                        <a style="width: 100%" href="{{pathFor 'patientVisit'}}" class="btn btn-lg btn-primary">Zarządzaj wizytami &raquo;</a> 
                     {{else}}
                         <a style="margin: 15px 0px 15px; width: 100%" href="{{pathFor 'patientContact'}}" class="btn btn-lg btn-primary">Uzupełnij dane kontaktowe &raquo;</a> 
-                        <a style="width: 100%" href="#" class="btn btn-lg btn-primary" disabled>Zapisz się na wizytę &raquo;</a> 
+                        <a style="width: 100%" href="{{pathFor 'patientVisit'}}" class="btn btn-lg btn-primary" disabled>Zarządzaj wizytami &raquo;</a> 
                     {{/if}}
                 </div>
             </div>

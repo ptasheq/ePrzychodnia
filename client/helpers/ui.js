@@ -6,3 +6,7 @@ UI.registerHelper('siteReady', function() {
 UI.registerHelper('getRoles', function() {
 	return roles;
 });
+
+UI.registerHelper('routeIs', function(routeName) {
+	return Router.current().route.name === routeName ? 'active' : '';
+});

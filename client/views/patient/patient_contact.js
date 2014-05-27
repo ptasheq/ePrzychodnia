@@ -29,6 +29,13 @@ var events = {
 	}
 };
 
+Template.patientContact.helpers({
+	contactData: function () {
+		var user = Meteor.user();
+		return {email: user.emails[0].address, phone: user.profile.contact.phone};
+	}
+});
+
 Template.patientContact.rendered = function () {
 
 	$('#patientContact').validate({

@@ -7,6 +7,6 @@ Template.patientIndex.events({
 Template.patientIndex.helpers({
 	hasContactData: function () {
 		var user = Meteor.user();
-		return user.profile.contact.phone || user.emails.address;
+		return user.profile.contact.phone || user.emails[0].address;
 	}
 });

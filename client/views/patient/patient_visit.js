@@ -22,6 +22,17 @@ Template.patientVisit.events({
 				}
 			});
 		}
+	},
+	'click td .btn': function(e) {
+		e.preventDefault();
+		//alert($(this).val());
+		if (confirm('Czy na pewno chcesz odwołać wizytę?')) {
+			Meteor.call('cancelVisit', e.currentTarget.id, function(error, result) {
+				if (error) {
+					throwError(error.reason);
+				}
+			});
+		}
 	}
 });
 

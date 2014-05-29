@@ -11,20 +11,30 @@
 </template>
 
 <template name="patientHeader">
-  <li class="{{routeIs 'patientIndex'}}"><a href="{{pathFor 'patientIndex'}}">Strona główna</a></li>
   {{#if isInRole getRoles.Patient}}
-  <li class="dropdown {{routeIs 'patientContact'}} {{routeIs 'patientVisit'}}">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Możliwe działania <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-      <li><a href="{{pathFor 'patientContact'}}">Uzupełnij dane kontaktowe</a></li>
-      <li><a href="{{pathFor 'patientVisit'}}">Zarządzaj wizytami</a></li>
-    </ul>
-  </li>
+  <ul class="nav navbar-nav">
+    <li class="{{routeIs 'patientIndex'}}"><a href="{{pathFor 'patientIndex'}}">Strona główna</a></li>
+    <li class="dropdown {{routeIs 'patientContact'}} {{routeIs 'patientVisit'}}">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Możliwe działania <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="{{pathFor 'patientContact'}}">Uzupełnij dane kontaktowe</a></li>
+        <li><a href="{{pathFor 'patientVisit'}}">Zarządzaj wizytami</a></li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+    <li><a href="#" class="logout">Wyloguj się</a></li>
+  </ul>
+  {{else}}
+  <ul class="nav navbar-nav">
+    <li class="{{routeIs 'patientIndex'}}"><a href="{{pathFor 'patientIndex'}}">Strona główna</a></li>
+  </ul>
   {{/if}}
 </template>
 
 <template name="adminHeader">
   {{#if isInRole getRoles.Admin}}
+  <ul class="nav navbar-nav">
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Zarządzaj personelem <b class="caret"></b></a>
       <ul class="dropdown-menu">
@@ -40,26 +50,35 @@
         <li><a href="#">Usuń dane pacjenta</a></li>
       </ul>
     </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#" class="logout">Wyloguj się</a></li>
+    </ul>
   {{else}}
+  <ul class="nav navbar-nav">
     <li class="active"><a href="#">Zaloguj się</a></li>
+  </ul>
   {{/if}}
   
 </template>
 
 <template name="staffHeader">
-  <li class="active"><a href="#">Zaloguj się</a></li>
-  <li><a href="#about">About</a></li>
-  <li><a href="#contact">Contact</a></li>
-  <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-      <li><a href="#">Action</a></li>
-      <li><a href="#">Another action</a></li>
-      <li><a href="#">Something else here</a></li>
-      <li class="divider"></li>
-      <li class="dropdown-header">Nav header</li>
-      <li><a href="#">Separated link</a></li>
-      <li><a href="#">One more separated link</a></li>
-    </ul>
-  </li>
-</template>
+  {{#if isInRole getRoles.Staff getRoles.Office}} 
+  <ul class="nav navbar-nav">
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wizyty <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="{{pathFor 'confirmVisits'}}">Potwierdź wizyty</a></li>
+        <li><a href="{{pathFor 'viewVisits'}}">Przeglądaj wizyty</a></li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+    <li><a href="#" class="logout">Wyloguj się</a></li>
+  </ul>
+  {{else}}
+  <ul class="nav navbar-nav">
+    <li class="active"><a href="#">Zaloguj się</a></li>
+  </ul>
+  {{/if}}
+  </template>

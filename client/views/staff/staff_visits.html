@@ -1,0 +1,45 @@
+<template name="confirmVisits">
+	<div class="container">
+		<div class="page-header">
+			<h1>Lista wizyt</h1>
+		</div>
+		{{#if visits}}
+		<table class="table table-striped table-bordered">
+			<tbody>
+				<tr>
+					<th>Imię pacjenta</th>
+					<th>Nazwisko pacjenta</th>	
+					<th>Wiek</th>	
+					<th colspan="2">Akcja</th>
+				</tr>
+				{{#each visits}}
+					{{> visitsTable}}
+				{{/each}}
+			</tbody>
+		</table>
+		{{else}}
+		<p>Obecnie nie ma żadnych wizyt do potwierdzenia.</p>
+		{{/if}}
+	</div>	
+	<div style="display: none" id="datepickerWrapper">
+		<form class="form form-horizontal">
+			<input type="text" name="time" class="form-control" placeholder="Wprowadź godzinę hh:mm">
+			<input type="text" name="visit-date" class="form-control datepicker" required placeholder="Wybierz datę">
+			<button class="btn btn-sm btn-success confirm">Potwierdź &raquo;</button>
+		</form>
+	</div>
+</template>
+
+<template name="visitsTable">
+	<tr>
+		{{#with userData patient}}
+			<td>{{profile.firstname}}</td>
+			<td>{{profile.lastname}}</td>
+			<td>{{age}}</td>
+		{{/with}}
+		<td><button data-toggle="popover" data-original-title="Wybierz termin" class="btn btn-sm btn-success" name="choose" id="{{_id}}">Wybierz termin</button>
+		</td>
+		<td><button class="btn btn-sm btn-danger" id="{{_id}}">Odwołaj</button></td>
+	</tr>		
+</template>
+

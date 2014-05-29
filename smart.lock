@@ -6,7 +6,8 @@
       "iron-router": {},
       "roles": {},
       "spin": {},
-      "jquery-validation": {}
+      "jquery-validation": {},
+      "bootstrap3-datepicker": {}
     },
     "packages": {
       "bootstrap-3": {
@@ -33,6 +34,11 @@
         "git": "https://github.com/properapp/jquery-validation.git",
         "tag": "v1.0.0",
         "commit": "afce6a53368c4f35f3bd82d92572312db68ecbb7"
+      },
+      "bootstrap3-datepicker": {
+        "git": "https://github.com/rajit/bootstrap3-datepicker.git",
+        "tag": "v0.2.1",
+        "commit": "442484eb1c8eb00c6b9e0e9c88accc934cf8f04a"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

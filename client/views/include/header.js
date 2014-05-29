@@ -12,3 +12,10 @@ Template.header.helpers({
 		return tmp && $.inArray(tmp.path.split('/')[1], ['admin', 'staff']) === -1; 
 	}
 });
+
+Template.header.events({
+	'click .logout': function (e) {
+		e.preventDefault();
+		Meteor.logout();
+	}
+});

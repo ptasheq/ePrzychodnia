@@ -4,6 +4,7 @@
     "iron-router": {},
     "roles": {},
     "spin": {},
-    "jquery-validation": {}
+    "jquery-validation": {},
+    "bootstrap3-datepicker": {}
   }
 }

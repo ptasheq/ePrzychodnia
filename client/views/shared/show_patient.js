@@ -9,8 +9,7 @@ var events = {
 			if (!userData[i])
 				delete userData[i];
 		}
-		UI.insert(UI.renderWithData(Template.patientsSearch, {patients: Users.find(userData)}), $('.container')[1]);
-
+		UI.insert(UI.renderWithData(Template.patientsSearch, {patients: Users.find(userData)}), $('.patientsSearch')[0]);
 	},
 	'keyup form': function(e) {
 		var inputs = $('.form-horizontal input');
@@ -27,7 +26,9 @@ var events = {
 Template.showPatient.rendered = function () {
 
 	$.validator.addMethod('pesel', function(pesel, element) {
-		return validationRules.pesel(pesel);
+		// we want avoid appearing error message when id is correct
+		return validationRules.pesel(pesel) 
+		|| ($('[name=id]').val() !== '' && $('[name=pesel]').val() === '');
 	});
 
 	// A workaround that allows us to submit an invalidate form
@@ -50,31 +51,6 @@ Template.patientSearch.rendered = function () {
 };
 
 Template.patientSearch.helpers({
-	gender: function () {
-		var g = {};
-		g[genders.Male] = 'Mężczyzna';
-		g[genders.Female] = 'Kobieta';
-		g[genders.NotKnown] = 'Nieznana';
-		g[genders.NotApplicable] = 'Nie dotyczy';
-		return g[this.profile.gender];
-	},
-	age: function() {
-		var birth = new Date(this.profile.birth_date);
-		var today = new Date();
-
-		var age = today.getYear() - birth.getYear();
-
-		// we have to check if we are past birthday
-		if (today.getMonth() - birth.getMonth() < 0) {
-			--age;
-		}	
-		else if (today.getMonth() === birth.getMonth()
-		         && today.getDay() - birth.getDay() < 0) {
-			--age;
-		}
-		return age;
-
-	},
 	email: function() {
 		return this.emails[0].address;
 	}	

@@ -1,6 +1,6 @@
 {
 	"login": "Musisz być zalogowanym, aby skorzystać z tej funkcji!",
-	"wrongData": "Serwer otrzymał nieprawidłowe dane użytkowników!",
+	"wrongData": "Serwer otrzymał nieprawidłowe dane!",
 	"admin": "Aby wykonać tę akcję musisz mieć uprawnienia administratora",
 	"patient": "Musisz być pacjentem, aby wykonać tę akcję!",
 	"privileges": "Aby wykonać tę akcję musisz mieć odpowiednie uprawnienia",
@@ -9,6 +9,7 @@
 	"userNotExist": "Podany użytkownik nie istnieje!",
 	"chooseDoctor": "Musisz wskazać lekarza!",
 	"visitExist": "Już masz umówioną wizytę z tym lekarzem!",
-	"visitModify": "Musisz wybrać własną wizytę do modyfikacji!",
+	"visitOwnModify": "Musisz wybrać własną wizytę do modyfikacji!",
+	"visitModify": "Wystąpił błąd przy próbie modyfikacji danych wizyty!",
 	"visitAsk": "Wystąpił błąd przy próbie zgłoszenia wizyty!" 
 }

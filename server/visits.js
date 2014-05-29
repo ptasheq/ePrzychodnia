@@ -1,5 +1,5 @@
 Meteor.publish('visits', function() {
-	return Visits.find({patient: this.userId});
+	return Visits.find({$or: [{patient: this.userId}, {physician: this.userId}]});
 });
 
 Meteor.methods({
@@ -28,6 +28,7 @@ Meteor.methods({
 		}
 
 		//@TODO mongo transaction
+		//@TODO findAndModify
 
 		var visitId = Visits.insert({
 			patient: currentUser._id, 
@@ -45,17 +46,33 @@ Meteor.methods({
 	cancelVisit: function(visitId) {
 		var currentUser = Meteor.user();
 		if (!currentUser || !Roles.userIsInRole(currentUser, ['patient'])) {
-			Meteor.Error(401, errors.patient);
+			throw new Meteor.Error(401, errors.patient);
 		}
 
-		var visit = Visits.findOne({_id: visitId});
-
-		if (visit.patient !== currentUser._id) {
-			Meteor.Error(401, errors.visitModify);
+		if (!_.contains(currentUser.profile.visits, visitId)) {
+			throw new Meteor.Error(401, errors.visitOwnModify);
 		}
 
 		//@TODO mongo transaction
 		Meteor.users.update({_id: {$in: [currentUser._id, visit.physician]}}, {$pull: {'profile.visits': visitId}}, {multi: true});
 		Visits.remove({_id: visitId});	
+	},
+	confirmVisit: function(data) {
+		var currentUser = Meteor.user();
+		if (!currentUser || !Roles.userIsInRole(currentUser, ['staff']) 
+		    || !_.contains(currentUser.profile.visits, data.visitId)) {
+			throw new Meteor.Error(401, errors.privileges);
+		}
+
+		// visit must take place at least after minTime minutes
+		if (!data.valueOf() || (data - new Date() <= visitOptions.minTime * 60 * 1000)) {
+			throw new Meteor.Error(401, errors.wrongData);
+		}
+
+		Visits.update({_id: data.visitId, confirmed: false}, {$set: {confirmed: true, date: data.date}}, function(error, result) {
+			if (error) {
+				throw new Meteor.Error(401, errors.visitModify);
+			}
+		});
 	}
 });

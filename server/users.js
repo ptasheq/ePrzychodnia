@@ -9,7 +9,7 @@ Meteor.publish('users', function(role) {
 	}
 
 	if (Roles.userIsInRole(this.userId, [roles.Admin])) {
-		return User.find({roles: role}, {services: 0});	
+		return Users.find({roles: role}, {services: 0});	
 	}
 
 	// as a patient we have only access to limited staff data 
@@ -20,7 +20,7 @@ Meteor.publish('users', function(role) {
 
 	// we have to have admin or staff privilege to find patients
 	if (Roles.userIsInRole(this.userId, [roles.Admin, roles.Staff, roles.Office]) && role.indexOf(roles.Patient) > -1) {
-		return User.find({roles: role}, {services: 0});	
+		return Users.find({roles: role}, {services: 0});	
 	}
 	throw new Meteor.Error(401, errors.privileges);
 });

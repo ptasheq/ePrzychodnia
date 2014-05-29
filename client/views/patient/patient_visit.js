@@ -25,7 +25,6 @@ Template.patientVisit.events({
 	},
 	'click td .btn': function(e) {
 		e.preventDefault();
-		//alert($(this).val());
 		if (confirm('Czy na pewno chcesz odwołać wizytę?')) {
 			Meteor.call('cancelVisit', e.currentTarget.id, function(error, result) {
 				if (error) {
@@ -42,13 +41,7 @@ Template.patientVisit.helpers({
 		return Users.find({_id: {$ne: Meteor.userId()}});
 	},
 	visits: function() {
-		var userId = Meteor.userId();
-		return Visits.find({});
-	}
-});
-
-Template.patientVisits.helpers({
-	 physicianData: function (id) {
-	 	return Users.findOne({_id: id});
+		var query = Visits.find({});
+		return query.count() > 0 ? query : false;
 	}
 });

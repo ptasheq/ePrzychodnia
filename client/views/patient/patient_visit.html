@@ -1,23 +1,23 @@
 <template name="patientVisit">
 	<div class="container">
+		{{#if visits}}
 		<div class="page-header">
 			<h1>Umówione wizyty</h1>
-			{{#if visits}}
-				<table class="table table-striped table-bordered">
-					<tbody>
-						<tr>
-							<th>Dane lekarza</th>
-							<th>Specjalność</th>	
-							<th>Termin wizyty</th>	
-							<th>Akcja</th>
-						</tr>
+		</div>
+			<table class="table table-striped table-bordered">
+				<tbody>
+					<tr>
+						<th>Dane lekarza</th>
+						<th>Specjalność</th>	
+						<th>Termin wizyty</th>	
+						<th>Akcja</th>
+					</tr>
 				{{#each visits}}
 					{{> patientVisits}}
 				{{/each}}
 				</tbody>
 			</table>
-			{{/if}}
-		</div>
+		{{/if}}
 		<div class="page-header">
 			<h1>Formularz zapisów do lekarza</h1>
 		</div>
@@ -27,27 +27,23 @@
 					<select style="color: #919191" class="form-control" name="physician">
 						<option style="color: #aaaaaa" value="-1">Wybierz lekarza</option>
 						{{#each physicians}}
-							{{> patientVisitPhysicians}}
+							{{> visitPhysicians}}
 						{{/each}}
                     </select>
 				</div>
 			</div>
-			<button class="btn btn-primary" type="submit" disabled>Zatwierdź &raquo;</button>
+			<button class="btn btn-primary" type="submit" disabled>Wyślij prośbę o wizytę u lekarza &raquo;</button>
 		</form>
 	</div>
 </template>
 
-<template name="patientVisitPhysicians">
-	<option value="{{_id}}">{{profile.profession}} - lek. med. {{profile.firstname}} {{profile.lastname}}</option>
-</template>
-
 <template name="patientVisits">
 	<tr>
-	{{#with physicianData physician}}		
+	{{#with userData physician}}		
 		<td>lek. med. {{profile.firstname}} {{profile.lastname}}</td>
 		<td>{{profile.profession}}</td>
 	{{/with}}
-	<td>{{#if confirmed}} {{data}} {{else}} Nie ustalono {{/if}}</td>
+	<td>{{#if confirmed}} {{formattedDate}} {{else}} Nie ustalono {{/if}}</td>
 	<td><a class="btn btn-sm btn-danger" href="#" id="{{_id}}">Odwołaj</a></td>
 </tr>
 </template>

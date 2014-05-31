@@ -3,7 +3,35 @@
 		<div class="page-header">
 			<h1>Wizyty w wybranym dniu</h1>
 		</div>
-		<div class="col-sm-7 datepicker">
-		</div>
+		<div class="col-sm-4 datepicker"></div>
+		<div class="col-sm-8 viewVisitsResults"></div>	
 	</div>
+</template>
+
+<template name="viewVisitsResults">
+	{{#if visitsCount}}
+		<table class="table table-striped table-bordered">
+			<tbody>
+				<tr>
+					<th>Godzina</th>
+					<th>Imię</th>
+					<th>Nazwisko</th>
+					<th>Wiek</th>
+					<th colspan="2">Akcje</th>
+				</tr>
+		{{#each visits}}
+			<tr>
+				<td>{{time}}</td>
+				{{#with userData patient}}
+					<td>{{profile.firstname}}</td>
+					<td>{{profile.lastname}}</td>
+					<td>{{age}}</td>
+					<td><a class="btn btn-sm btn-default">Historia pacjenta &raquo;</a></td>
+				{{/with}}
+				<td><a href="{{pathFor 'editVisits'}}" class="btn btn-sm btn-default fill">Uzupełnij &raquo;</a></td>
+			</tr>
+		{{/each}}
+			</tbody>
+		</table>
+	{{/if}}
 </template>

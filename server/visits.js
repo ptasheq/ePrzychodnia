@@ -2,6 +2,10 @@ Meteor.publish('visits', function() {
 	return Visits.find({$or: [{patient: this.userId}, {physician: this.userId}]});
 });
 
+Meteor.publish('singleVisit', function(id) {
+	return Visits.find({_id: id, physician: this.userId});
+});
+
 Meteor.methods({
 	askVisit: function (physicianId) {
 		var currentUser = Meteor.user();

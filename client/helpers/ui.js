@@ -21,7 +21,10 @@ UI.registerHelper('gender', function () {
 });
 
 UI.registerHelper('formattedDate', function() {
+	// if is required to prevent errors with deps
+	if (this.date) {
 		return this.date.toISOString().substr(0, 10) + ' o godzinie: ' + this.date.getHours() + ':' + this.date.getMinutes();  
+	}
 });
 
 UI.registerHelper('age', function() {

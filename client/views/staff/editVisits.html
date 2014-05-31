@@ -1,0 +1,30 @@
+<template name="editVisits">
+	<div class="container">
+		<div class="page-header">
+			<h1>Uzupełnij dane wizyty</h1>
+		</div>
+
+		<div class="highlight">
+			<p><strong>Data edytowanej wizyty</strong><br>
+				{{formattedDate}}
+			</p>
+			{{#with userData patient}}
+				<p><strong>Imię i nazwisko pacjenta</strong><br>
+					{{profile.firstname}} {{profile.lastname}}
+				</p>
+				<p><strong>Wiek</strong><br>
+					{{age}}
+				</p>
+			{{/with}}
+		</div>
+		<div class="col-sm-5">
+			<h3>Dane do uzupełnienia</h3>	
+			<div class="input-group">
+				<input type="text" class="form-control typeahead" name="icd9" placeholder="Procedura medyczna" autocomplete="off" data-source="icd9">
+				<span class="input-group-btn">
+			        <button class="btn btn-default" type="button">Dodaj</button>
+				</span>
+			</div>
+		</div>
+	</div>
+</template>

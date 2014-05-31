@@ -7,7 +7,8 @@
       "roles": {},
       "spin": {},
       "jquery-validation": {},
-      "bootstrap3-datepicker": {}
+      "bootstrap3-datepicker": {},
+      "typeahead": {}
     },
     "packages": {
       "bootstrap-3": {
@@ -39,6 +40,11 @@
         "git": "https://github.com/rajit/bootstrap3-datepicker.git",
         "tag": "v0.2.1",
         "commit": "442484eb1c8eb00c6b9e0e9c88accc934cf8f04a"
+      },
+      "typeahead": {
+        "git": "https://github.com/sergeyt/meteor-typeahead.git",
+        "tag": "v0.0.9",
+        "commit": "6aa2228a7cc93e89e94520bd60f1af4e7542dfcf"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

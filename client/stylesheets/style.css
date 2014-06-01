@@ -42,10 +42,6 @@ input.datepicker {
     padding: 9px 14px;
 }
 
-.tt-dropdown-menu {
-
-}
-
 .twitter-typeahead {
 	display: block !important;
 }
@@ -58,7 +54,7 @@ input.datepicker {
     margin-top: 12px;
     padding: 8px 2px;
     width: 100%;
-    overflow: hidden;
+    overflow-y: scroll;
     max-height: 300px;
 }
 
@@ -70,4 +66,8 @@ input.datepicker {
 .tt-suggestion.tt-cursor {
     background-color: #0097CF;
     color: #FFFFFF;
+}
+
+a.remove {
+	margin: 0px 0px 0px 4px;
 }

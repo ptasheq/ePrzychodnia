@@ -1,0 +1,94 @@
+<template name="editVisits">
+	<div class="container">
+		<div class="page-header">
+			<h1>Uzupełnij dane wizyty</h1>
+		</div>
+
+		<div class="highlight">
+			<p><strong>Data edytowanej wizyty</strong><br>
+				{{formattedDate}}
+			</p>
+			{{#with userData patient}}
+				<p><strong>Imię i nazwisko pacjenta</strong><br>
+					{{profile.firstname}} {{profile.lastname}}
+				</p>
+				<p><strong>Wiek</strong><br>
+					{{age}}
+				</p>
+			{{/with}}
+			{{#if getData data.icd9}}
+				<p id="icd9" class="fromserver">
+					<strong>Przeprowadzone zabiegi medyczne</strong><br>
+					{{#each getData data.icd9}}
+						<span class="fromserver">{{this}}<a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a><br></span>
+					{{/each}}
+				</p>
+			{{/if}}
+			{{#if getData data.icd10}}
+				<p id="icd10" class="fromserver">
+					<strong>Rozpoznanie</strong><br>
+					{{#each getData data.icd10}}
+						<span class="fromserver">{{this}}<a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a><br></span>
+					{{/each}}
+				</p>
+			{{/if}}     
+			{{#if getData data.meds}}
+				<p id="meds" class="fromserver">
+					<strong>Zapisane leki</strong><br>
+					{{#each getData data.meds}}
+						<span class="fromserver">{{this}}<a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a><br></span>
+					{{/each}}
+				</p>
+			{{/if}}
+			{{#if getData data.visitInfo}}
+				<p id="visitInfo" class="fromserver">
+					<strong>Dodatkowe informacje</strong><br>
+					{{#each getData data.visitInfo}}
+						<span class="fromserver">{{this}}<a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a><br></span>
+					{{/each}}
+				</p>
+			{{/if}}
+		</div>
+		<div class="form-group pull-right">
+			<button class="btn btn-success" id="confirm">Zatwierdź zmiany &raquo;</button>	
+		</div>
+		<div class="col-sm-12">
+			<h3>Dane do uzupełnienia</h3>	
+		</div>
+		<div class="col-sm-6">
+			<div class="input-group">
+				<input type="text" class="form-control typeahead" name="icd9" placeholder="Procedura medyczna" autocomplete="off" data-source="icd9">
+				<span class="input-group-btn">
+			        <button class="btn btn-default" disabled type="button">Dodaj</button>
+				</span>
+			</div>
+			<div style="margin-top: 15px" class="input-group">
+				<input type="text" class="form-control typeahead" name="icd10" placeholder="Rozpoznanie" autocomplete="off" data-source="icd10">
+				<span class="input-group-btn">
+			        <button class="btn btn-default" disabled type="button">Dodaj</button>
+				</span>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="input-group">
+				<input type="text" class="form-control typeahead" name="meds" placeholder="Wybór leku" autocomplete="off" data-source="meds">
+				<span class="input-group-btn">
+			        <button class="btn btn-default" disabled type="button">Dodaj</button>
+				</span>
+			</div>
+			<div class="form-group">
+				<input style="margin-top: 15px" type="text" class="form-control" name="meds-dose" placeholder="Uwagi do dawkowania">
+			</div>
+		</div>
+		<div class="col-sm-12">
+			<div class="form-group">
+				<span>
+					<textarea class="form-control" name="visitInfo" placeholder="Dodatkowe informacje o wizycie"></textarea>	
+				</span>
+				<span class="pull-right">
+			        <button style="margin-top: 15px" class="btn btn-default" disabled type="button">Dodaj</button>
+		        </span>
+			</div>
+		</div>
+	</div>
+</template>

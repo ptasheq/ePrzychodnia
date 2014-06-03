@@ -47,7 +47,7 @@ Template.showPatient.rendered = function () {
 Template.showPatient.events(events);
 
 Template.patientSearch.rendered = function () {
-	$('.btn').popover({html: true});
+	$('.extend').popover({html: true});
 };
 
 Template.patientSearch.helpers({

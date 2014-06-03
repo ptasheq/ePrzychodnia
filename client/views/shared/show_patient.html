@@ -33,6 +33,7 @@
 					<th>Dane dokumentu</th>
 					<th>Dane kontaktowe</th>
 					<th>Kogo poinformować?</th>
+					<th>Akcje</th>
 				</tr>	
 				{{#each patients}}
 					{{> patientSearch}}
@@ -52,8 +53,9 @@
 		<td>{{age}}</td>
 		<td>{{profile.birth_place}}</td>
 		<td>{{profile.document_series}} {{profile.document_number}}</td>
-		<td><a role="button" data-content="Telefon: {{profile.contact.phone}} <br> Email: {{email}}" title="" data-toggle="popover" class="btn btn-default" href="#" data-original-title="Dane kontaktowe">Rozwiń</a></td>
-		<td><a role="button" data-content="Imię: {{profile.trusted.firstname}} <br> Nazwisko: {{profile.trusted.lastname}}<br>Telefon: {{profile.trusted.phone}}" title="" data-toggle="popover" class="btn btn-default" href="#" data-original-title="Kogo poinformować?">Rozwiń</a></td>
-		<td><button class="btn btn-default" type="button">Edytuj</button></td>
+		<td><a role="button" data-content="Telefon: {{profile.contact.phone}} <br> Email: {{email}}" title="" data-toggle="popover" class="extend btn btn-default" href="#" data-original-title="Dane kontaktowe">Rozwiń</a></td>
+		<td><a role="button" data-content="Imię: {{profile.trusted.firstname}} <br> Nazwisko: {{profile.trusted.lastname}}<br>Telefon: {{profile.trusted.phone}}" title="" data-toggle="popover" class="btn btn-default extend" href="#" data-original-title="Kogo poinformować?">Rozwiń</a></td>
+		<td><a href="{{pathFor 'showHistory' _id=this._id role='staff'}}" class="btn btn-default">Historia &raquo;</a></td>
+
 	</tr>
 </template>

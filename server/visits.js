@@ -1,4 +1,7 @@
-Meteor.publish('visits', function() {
+Meteor.publish('visits', function(id) {
+	if (id && Roles.userIsInRole(id, roles.Patient)) {
+		return Visits.find({patient: id, physician: this.userId, confirmed: true}, {sort: {date: -1}});
+	}
 	return Visits.find({$or: [{patient: this.userId}, {physician: this.userId}]});
 });
 

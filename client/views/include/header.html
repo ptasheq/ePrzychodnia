@@ -46,7 +46,7 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Zarządzaj pacjentami <b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><a href="{{pathFor 'addPatient'}}">Dodaj pacjenta</a></li>
-        <li><a href="{{pathFor 'showPatient'}}">Zmień/wyszukaj dane pacjenta</a></li>
+        <li><a href="{{pathFor 'showPatient' role=getRoles.Admin}}">Zmień/wyszukaj dane pacjenta</a></li>
         <li><a href="#">Usuń dane pacjenta</a></li>
       </ul>
     </li>
@@ -74,7 +74,7 @@
     </li>
     <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pacjenci <b class="caret"></b></a>
       <ul class="dropdown-menu">
-        <li><a href="{{pathFor 'showPatient'}}">Przeglądaj historię pacjenta</a></li>
+        <li><a href="{{pathFor 'showPatient' role=getRoles.Staff}}">Zmień/wyszukaj dane pacjenta</a></li>
       </ul>
     </li>
   </ul>

@@ -1,3 +1,54 @@
 <template name="showHistory">
-Historia	
+	<div class="content">
+		<div class="page-header">
+			<h1>Historia pacjenta<br><small>{{profile.firstname}} {{profile.lastname}}</small></h1>
+		</div>
+		{{#each visits}}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Wizyta z dnia {{formattedDate}} <a href="#" class="pull-right btn btn-success"> <span class="glyphicon glyphicon-plus"></span></a>
+					<div style="clear: both"></div>
+				</div>
+				<div style="display: none" class="panel-body">
+					<div class="col-sm-6">
+					{{#if getData data.icd9}}
+						<p id="icd9">
+							<strong>Przeprowadzone zabiegi medyczne</strong><br>
+							{{#each getData data.icd9}}
+								<span>{{this}}<br></span>
+							{{/each}}
+						</p>
+					{{/if}}
+					{{#if getData data.icd10}}
+						<p id="icd10">
+							<strong>Rozpoznanie</strong><br>
+							{{#each getData data.icd10}}
+								<span>{{this}}<br></span>
+							{{/each}}
+						</p>
+					{{/if}}     
+					{{#if getData data.meds}}
+						<p id="meds">
+							<strong>Zapisane leki</strong><br>
+							{{#each getData data.meds}}
+								<span>{{this}}<br></span>
+							{{/each}}
+						</p>
+					{{/if}}
+					{{#if getData data.visitInfo}}
+						<p id="visitInfo">
+							<strong>Dodatkowe informacje</strong><br>
+							{{#each getData data.visitInfo}}
+								<span>{{this}}<br></span>
+							{{/each}}
+						</p>
+					{{/if}}
+					</div>
+					<div class="col-sm-6">
+						<a href="{{pathFor 'editVisits'}}" class="btn btn-lg btn-info">Edytuj dane wizyty &raquo;</a>
+					</div>
+				</div>
+			</div>
+		{{/each}}
+	</div>
 </template>

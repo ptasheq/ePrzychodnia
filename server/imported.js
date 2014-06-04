@@ -70,7 +70,7 @@ Meteor.methods({
 		}
 
 		Visits.update({_id: visitId, physician: currentUser._id}, {$set: {data: query}});
-
+		return successes.editVisit;
 	},
 
 	sendsms: function(phone, date) {

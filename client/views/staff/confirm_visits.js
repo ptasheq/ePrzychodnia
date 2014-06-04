@@ -88,15 +88,11 @@ Template.confirmVisits.events({
 		var niceDate = date.toISOString().substr(0,10) + " " + date.getHours() + ":" + date.getMinutes();
 
 		Meteor.call('sendsms', phone, niceDate, function(error, result) {
-			if (error) {
-				throwError(error.reason);
-			}
+			notify(error, result);
 		}); 
 
 		Meteor.call('confirmVisit', data, function(error, result) {
-			if (error) {
-				throwError(error.reason);
-			}
+			notify(error, result);
 		});
 		
 	}

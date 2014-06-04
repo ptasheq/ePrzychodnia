@@ -41,7 +41,7 @@ Template.editVisits.events({
 		var duplicate = false;
 		_.each($('#' + input.name).children('span'), function(el) {if (!duplicate) duplicate = el.innerHTML.indexOf(input.value) > -1;});
 		if (duplicate) {
-			throwError('Nie możesz dodać 2 razy tego samego zabiegu!');
+			notify({reason: 'Nie możesz dodać 2 razy tego samego zabiegu!'});
 		}
 		else {
 			$('#' + input.name).append('<span>' + input.value + dose + '<a href="#" class="remove"><span class="glyphicon glyphicon-remove"></span></a><br></span>');
@@ -86,9 +86,7 @@ Template.editVisits.events({
 		});
 
 		Meteor.call('editVisit', query, document.URL.replace(/.*\//g, ''), function(error, result) {
-			if (error) {
-				throwError(error.reason);	
-			}
+			notify(error, result);	
 		});
 
 	}
@@ -97,27 +95,18 @@ Template.editVisits.events({
 
 Template.editVisits.icd9 = function(query, callback) {
 	Meteor.call('fetchIcd9', query, function(error, result) {
-		if (error) {
-			throwError(error);
-		}
 		callback(result.map(function(i) {return {value: i.subcategory + " " + i.subcategoryTitle}}));
 	});
 };
 
 Template.editVisits.icd10 = function(query, callback) {
 	Meteor.call('fetchIcd10', query, function(error, result) {
-		if (error) {
-			throwError(error);
-		}
 		callback(result.map(function(i) {return {value: i.code + " " + i.name}}));
 	});
 };
 
 Template.editVisits.meds = function(query, callback) {
 	Meteor.call('fetchMeds', query, function(error, result) {
-		if (error) {
-			throwError(error);
-		}
 		var resultToDisplay = [];
 		_.each(result, function(item) {
 			_.each(item.content.split('\n'), function(subitem) {

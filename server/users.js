@@ -55,7 +55,7 @@ Meteor.methods({
 			throwError(errors.createUser);
 		}
 		Roles.addUsersToRoles(id, currentRole);
-		return true;
+		return (user.profile.role === roles.Staff) ? successes.addStaff : successes.addPatient;
 	},
 
 	deleteUser: function(id) {
@@ -83,6 +83,6 @@ Meteor.methods({
 		}
 
 		Meteor.users.remove(id);
-		return true;
+		return successes.deleteUser;
 	}
 });

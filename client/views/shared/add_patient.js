@@ -89,9 +89,7 @@ Template.addPatient.events({
 				console.log(userData.email);
 				// @TODO security issue
 				Meteor.call('addNewUser', userData, function (error, result) {
-					if (error) {
-						throwError(error.reason);
-					}
+					notify(error, result);
 				});	
 			}
 		}

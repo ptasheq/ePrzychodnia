@@ -1,0 +1,14 @@
+<template name="notifications">
+	<div class="notifications row-fluid">
+		{{#each notifications}}
+			{{> notification}}
+		{{/each}}
+	</div>
+</template>
+
+<template name="notification">
+	<div class="alert {{#if error}}alert-danger{{else}}alert-success{{/if}}">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		{{message}}
+	</div>
+</template>

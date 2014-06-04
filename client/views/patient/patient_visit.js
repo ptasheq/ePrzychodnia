@@ -17,9 +17,7 @@ Template.patientVisit.events({
 		var physician = $(e.target).find('[name=physician]').val();
 		if (physician !== '-1') {
 			Meteor.call('askVisit', physician, function(error, result) {
-				if (error) {
-					throwError(error.reason);
-				}
+				notify(error, result);
 			});
 		}
 	},
@@ -27,9 +25,7 @@ Template.patientVisit.events({
 		e.preventDefault();
 		if (confirm('Czy na pewno chcesz odwołać wizytę?')) {
 			Meteor.call('cancelVisit', e.currentTarget.id, function(error, result) {
-				if (error) {
-					throwError(error.reason);
-				}
+				notify(error, result);
 			});
 		}
 	}

@@ -48,7 +48,7 @@ Meteor.methods({
 		});
 
 		Meteor.users.update({_id: {$in: [currentUser._id, physicianId]}}, {$addToSet: {'profile.visits': visitId}}, {multi: true});
-		return true;
+		return false;
 	},
 	cancelVisit: function(visitId) {
 		var currentUser = Meteor.user();
@@ -81,5 +81,6 @@ Meteor.methods({
 				throw new Meteor.Error(401, errors.visitModify);
 			}
 		});
+		return false;
 	}
 });

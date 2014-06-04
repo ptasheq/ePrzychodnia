@@ -6,6 +6,7 @@
     "spin": {},
     "jquery-validation": {},
     "bootstrap3-datepicker": {},
-    "typeahead": {}
+    "typeahead": {},
+    "npm": {}
   }
 }

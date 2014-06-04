@@ -79,11 +79,26 @@ Template.confirmVisits.events({
 
 		//@TODO: unique date constraint - we can't have two patients in the same time
 
+		var v = Visits.find(id=id);
+		var patientId = v.collection.findOne().patient;
+		var u = Users.find(id=patientId);
+		var patient = u.fetch();
+		var phone = patient[0].profile.contact.phone;
+		
+		var niceDate = date.toISOString().substr(0,10) + " " + date.getHours() + ":" + date.getMinutes();
+
+		Meteor.call('sendsms', phone, niceDate, function(error, result) {
+			if (error) {
+				throwError(error.reason);
+			}
+		}); 
+
 		Meteor.call('confirmVisit', data, function(error, result) {
 			if (error) {
 				throwError(error.reason);
 			}
 		});
+		
 	}
 });
 

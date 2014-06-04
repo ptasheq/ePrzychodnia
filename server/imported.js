@@ -71,6 +71,16 @@ Meteor.methods({
 
 		Visits.update({_id: visitId, physician: currentUser._id}, {$set: {data: query}});
 
-	}
+	},
+
+	sendsms: function(phone, date) {
+            var key = 'c61d983a';
+            var secret = 'd1b83f52';
+	    var nexmo = Meteor.require('easynexmo');
+	    //nexmo.initialize(key, secret);
+	    //nexmo.sendTextMessage('NEXMO', phone, "Lekarz potwierdzil przyjecie na wizyte w terminie " + date );
+            console.log("log sms phone: " + phone);
+ 
+    	}
 
 });

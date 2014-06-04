@@ -8,7 +8,8 @@
       "spin": {},
       "jquery-validation": {},
       "bootstrap3-datepicker": {},
-      "typeahead": {}
+      "typeahead": {},
+      "npm": {}
     },
     "packages": {
       "bootstrap-3": {
@@ -45,6 +46,11 @@
         "git": "https://github.com/sergeyt/meteor-typeahead.git",
         "tag": "v0.0.9",
         "commit": "6aa2228a7cc93e89e94520bd60f1af4e7542dfcf"
+      },
+      "npm": {
+        "git": "https://github.com/arunoda/meteor-npm.git",
+        "tag": "v0.2.6",
+        "commit": "177ab6118de5bf8cffb19481343d5762ff7a2aaf"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

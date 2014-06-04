@@ -85,7 +85,7 @@ Template.confirmVisits.events({
 		var patient = u.fetch();
 		var phone = patient[0].profile.contact.phone;
 		
-		var niceDate = date.toISOString().substr(0,10) + " " + date.getHours() + ":" + date.getMinutes();
+		var niceDate = data.date.toISOString().substr(0,10) + " " + data.date.getHours() + ":" + data.date.getMinutes();
 
 		Meteor.call('sendsms', phone, niceDate, function(error, result) {
 			notify(error, result);

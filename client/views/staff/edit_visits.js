@@ -69,6 +69,12 @@ Template.editVisits.events({
 	},
 	'click #confirm': function(e) {
 		e.preventDefault();
+
+		// we can't modify if visit hasn't taken place yet
+		if (new Date() < Visits.findOne().date && !confirm('Wizyta jeszcze się nie zaczęła. Czy mimo to chcesz ją uzupełnić?')) {
+			return;
+		}
+
 		var query = {
 			icd9: [],
 			icd10: [],

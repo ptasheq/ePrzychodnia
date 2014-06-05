@@ -28,20 +28,32 @@ Meteor.publish('users', function(role) {
 Meteor.methods({
 	addNewUser: function(user) {
 		var currentUser = Meteor.user();
+
+		// checking correct object structure
+		if (!user || !user.profile) {
+			throw new Meteor.Error(401, errors.wrongData);
+		}
+
 		// we have to have admin privilege to add staff members
-		if (!currentUser || (!Roles.userIsInRole(currentUser, [roles.Admin]) 
-		    && user.profile.role !== roles.Staff)) {
+		if (!Roles.userIsInRole(currentUser, [roles.Admin])
+		    && user.profile.role === roles.Staff) {
 			throw new Meteor.Error(401, errors.admin);
 		}	
-		// we have to have admin or staff privilege to add patients
-		if (!Roles.userIsInRole(currentUser, [roles.Admin, roles.Office]) 
-		    && user.profile.role !== roles.Patient) {
-			throw new Meteor.Error(401, errors.privileges);
+
+		// adding admin or office is forbidden
+		if ([roles.Admin, roles.Office].indexOf(user.profile.role) > -1) {
+			throw new Meteor.Error(401, errors.privleges);
 		}
 
 		var currentRole = user.profile.role;
 		delete user.profile.role;
+
 		var userData = _.extend(_.pick(user, 'email'), user.profile);
+
+		// if users register themselves they are unconfimred
+		if (!currentUser) {
+			currentRole = roles.PatientTobe;
+		}
 
 		for (var item in userData) {
 			// we have to check if we receive correct data from client, 
@@ -52,10 +64,12 @@ Meteor.methods({
 		}
 		var id = Accounts.createUser(user);
 		if (!id) {
-			throwError(errors.createUser);
+			throw new Meteor.Error(401, errors.createUser);
 		}
-		Roles.addUsersToRoles(id, currentRole);
-		return (user.profile.role === roles.Staff) ? successes.addStaff : successes.addPatient;
+
+		Roles.addUsersToRoles(id, [currentRole]);
+
+		return (currentRole === roles.Staff) ? successes.addStaff : successes.addPatient;
 	},
 
 	deleteUser: function(id) {

@@ -4,7 +4,9 @@ loginUser = function(e) {
 	var password = $(e.target).find('[name=password]').val();
 
 	Meteor.loginWithPassword(login, password, function (error) {
-		error.reason = 'Podane dane logowania są błędne!';
-		notify(error);
+		if (error) {
+			error.reason = errors.incorrectForm;
+			notify(error);
+		}
 	});
 }

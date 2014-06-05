@@ -79,3 +79,12 @@ a.remove {
 .panel .col-sm-6:nth-child(2) {
     text-align: right;
 }
+
+.login-buttons button, .login-buttons a {
+    margin: 10px 0px;
+    width: 100%;
+}
+
+.login-buttons #login {
+    margin: 0px 0px 10px;
+}

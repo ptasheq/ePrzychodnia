@@ -1,6 +1,6 @@
 // @TODO phone validation
 
-Template.addPatient.rendered = function () {
+Template.editPatient.rendered = function () {
 	$('[name=gender]').change(function() {
 		if ($(this).find(":selected").val() == '-1') {
 			$(this).css('color', '#919191')
@@ -43,7 +43,7 @@ Template.addPatient.rendered = function () {
 	$.validator.messages.min = 'Proszę wybrać płeć';
 };
 
-Template.addPatient.events({
+Template.editPatient.events({
 	'submit form': function (e) {
 		e.preventDefault();
 		// pesel, password and gender have to be correct
@@ -104,7 +104,7 @@ Template.addPatient.events({
 	}
 });
 
-Template.addPatient.helpers({
+Template.editPatient.helpers({
 	gender: function () {
 		return genders;
 	}

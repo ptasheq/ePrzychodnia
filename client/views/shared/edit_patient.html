@@ -1,21 +1,17 @@
-<template name="addPatient">
+<template name="editPatient">
 	<div class="container">
 		<div class="page-header">
-            {{#if logged}}
-                <h1>Dodaj pacjenta</h1>
-            {{else}}
-                <h1>Zarejestruj się</h1>
-            {{/if}}
+			<h1>Formularz zmiany danych</h1>
 		</div>
 		<form id="addPatient" class="form-horizontal" role="form">
     			<div class="form-group">
 					<div class="col-sm-5">
-    					<input name="firstname" type="text" class="form-control" placeholder="Imię" required>
+    					<input val="{{profile.firstname}}" name="firstname" type="text" class="form-control" placeholder="Imię" required>
     				</div>
     			</div>
     			<div class="form-group">
 					<div class="col-sm-5">
-    					<input name="lastname" type="text" class="form-control" placeholder="Nazwisko" required>
+    					<input val="{{profile.lastname}}" name="lastname" type="text" class="form-control" placeholder="Nazwisko" required>
     				</div>
     			</div>
     			

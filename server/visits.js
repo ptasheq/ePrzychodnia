@@ -60,6 +60,8 @@ Meteor.methods({
 			throw new Meteor.Error(401, errors.visitOwnModify);
 		}
 
+		visit = Visits.findOne({_id: visitId});
+
 		//@TODO mongo transaction
 		Meteor.users.update({_id: {$in: [currentUser._id, visit.physician]}}, {$pull: {'profile.visits': visitId}}, {multi: true});
 		Visits.remove({_id: visitId});	

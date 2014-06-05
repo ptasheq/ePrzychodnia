@@ -8,10 +8,10 @@
             <div class="col-md-5">
                 <div class="col-sm-10">
                     {{#if hasContactData}}
-                        <a style="margin: 15px 0px 15px; width: 100%" href="{{pathFor 'patientContact'}}" class="btn btn-lg btn-info">Uzupełnij dane kontaktowe &raquo;</a> 
+                        <a style="margin: 15px 0px 15px; width: 100%" href="{{pathFor 'editPatient'}}" class="btn btn-lg btn-info">Uzupełnij dane kontaktowe &raquo;</a> 
                         <a style="width: 100%" href="{{pathFor 'patientVisit'}}" class="btn btn-lg btn-primary">Zarządzaj wizytami &raquo;</a> 
                     {{else}}
-                        <a style="margin: 15px 0px 15px; width: 100%" href="{{pathFor 'patientContact'}}" class="btn btn-lg btn-primary">Uzupełnij dane kontaktowe &raquo;</a> 
+                        <a style="margin: 15px 0px 15px; width: 100%" href="{{pathFor 'editPatient'}}" class="btn btn-lg btn-primary">Uzupełnij dane kontaktowe &raquo;</a> 
                         <a style="width: 100%" href="{{pathFor 'patientVisit'}}" class="btn btn-lg btn-primary" disabled>Zarządzaj wizytami &raquo;</a> 
                     {{/if}}
                 </div>
@@ -20,7 +20,7 @@
         {{else}}
         <div class="col-md-7">
            <h1>Szanowny Pacjencie</h1>
-           <p>Witaj na stronie systemu ePrzychodnia. Aby skorzystać z usług oferowanych przez platformę zaloguj się.</p>
+           <p>Witaj na stronie systemu ePrzychodnia. Aby skorzystać z usług oferowanych przez platformę zaloguj się. Jeżeli nie posiadasz konta w serwisie musisz najpierw się zarejestrować i potwierdzić swoje konto.</p>
         </div>
         <div class="col-md-5">
             <form class="form-horizontal" role="form">
@@ -35,8 +35,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-10">
-                        <button type="submit" class="btn btn-success">Zaloguj się &raquo;</button>
+                    <div class="col-sm-10 login-buttons">
+                        <button id="login" type="submit" class="btn btn-success btn-lg">Zaloguj się &raquo;</button><br> a jeżeli jeszcze nie posiadasz konta w serwisie<br>
+                        <a id="signup" href="{{pathFor 'addPatient'}}" class="btn btn-primary btn-lg">Zarejestruj się &raquo;</a>
                     </div>
                 </div>
             </form>

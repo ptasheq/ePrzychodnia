@@ -48,3 +48,7 @@ UI.registerHelper('age', function() {
 UI.registerHelper('userData', function (id) {
  	return Users.findOne({_id: id});
 });
+
+UI.registerHelper('logged', function() {
+	return Meteor.userId();	
+});

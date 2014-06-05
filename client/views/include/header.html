@@ -28,6 +28,7 @@
   {{else}}
   <ul class="nav navbar-nav">
     <li class="{{routeIs 'patientIndex'}}"><a href="{{pathFor 'patientIndex'}}">Strona główna</a></li>
+    <li class="{{routeIs 'addPatient'}}"><a href="{{pathFor 'addPatient'}}">Zarejestruj się</a></li>
   </ul>
   {{/if}}
 </template>
@@ -45,8 +46,10 @@
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Zarządzaj pacjentami <b class="caret"></b></a>
       <ul class="dropdown-menu">
+        {{#with role=getRoles.Admin}}
         <li><a href="{{pathFor 'addPatient'}}">Dodaj pacjenta</a></li>
-        <li><a href="{{pathFor 'showPatient' role=getRoles.Admin}}">Zmień/wyszukaj dane pacjenta</a></li>
+        <li><a href="{{pathFor 'showPatient'}}">Zmień/wyszukaj dane pacjenta</a></li>
+        {{/with}}
         <li><a href="#">Usuń dane pacjenta</a></li>
       </ul>
     </li>

@@ -74,13 +74,15 @@ Meteor.methods({
 	},
 
 	sendsms: function(phone, date) {
-            var key = 'c61d983a';
-            var secret = 'd1b83f52';
-	    var nexmo = Meteor.require('easynexmo');
-	    //nexmo.initialize(key, secret);
-	    //nexmo.sendTextMessage('NEXMO', phone, "Lekarz potwierdzil przyjecie na wizyte w terminie " + date );
-            console.log("log sms phone: " + phone);
- 
-    	}
+		if (phone && date) {
+	        var key = 'c61d983a';
+	        var secret = 'd1b83f52';
+		    var nexmo = Meteor.require('easynexmo');
+		    console.log(phone);
+		    console.log("Lekarz potwierdzil przyjecie na wizyte w terminie " + date);
+		    //nexmo.initialize(key, secret);
+		    //nexmo.sendTextMessage('NEXMO', phone, "Lekarz potwierdzil przyjecie na wizyte w terminie " + date);
+		}
+	}
 
 });

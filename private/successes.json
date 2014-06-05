@@ -1,6 +1,0 @@
-{
-	"addPatient": "Pacjent został pomyślnie dodany do bazy danych",
-	"addStaff": "Lekarz został pomyślnie dodany do bazy danych",
-	"editVisit": "Pomyślnie zmieniono dane dotyczące wizyty",
-	"deleteUser": "Pomyślnie usunięto użytkownika z bazy danych"
-}

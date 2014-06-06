@@ -6,47 +6,47 @@
 		<form id="addPatient" class="form-horizontal" role="form">
     			<div class="form-group">
 					<div class="col-sm-5">
-    					<input val="{{profile.firstname}}" name="firstname" type="text" class="form-control" placeholder="Imię" required>
+    					<input value="{{profile.firstname}}" name="firstname" type="text" class="form-control" placeholder="Imię" required>
     				</div>
     			</div>
     			<div class="form-group">
 					<div class="col-sm-5">
-    					<input val="{{profile.lastname}}" name="lastname" type="text" class="form-control" placeholder="Nazwisko" required>
+    					<input value="{{profile.lastname}}" name="lastname" type="text" class="form-control" placeholder="Nazwisko" required>
     				</div>
     			</div>
     			
     			<div class="form-group">
 					<div class="col-sm-5">
-    					<input name="pesel" type="text" class="form-control" placeholder="PESEL" required>
+    					<input value="{{username}}" name="pesel" type="text" class="form-control" placeholder="PESEL" required>
     				</div>
     			</div>
                  <div class="form-group">
                     <div class="col-sm-5">
                         <select style="color: #919191" class="form-control" name="gender">
                             <option style="color: #aaaaaa" value="-1">Wybierz płeć</option>
-                            <option value="{{gender.Male}}">Mężczyzna</option>
-                            <option value="{{gender.Female}}">Kobieta</option>
-                            <option value="{{gender.NotKnown}}">Nieznana</option>
-                            <option value="{{gender.NotApplicable}}">Nie dotyczy</option>
+                            <option selected={{selectGender gender.Male}} value="{{gender.Male}}">Mężczyzna</option>
+                            <option selected={{selectGender gender.Female}} value="{{gender.Female}}">Kobieta</option>
+                            <option selected={{selectGender gender.NotKnown}} value="{{gender.NotKnown}}">Nieznana</option>
+                            <option selected={{selectGender gender.NotApplicable}} value="{{gender.NotApplicable}}">Nie dotyczy</option>
                         </select>
                     </div>
                 </div> 
                 <div class="form-group">
                     <div class="col-sm-5">
-                        <input name="birth-date" type="text" class="form-control" placeholder="Data urodzenia YYYY-MM-DD" required>
+                        <input value="{{profile.birth_date}}" name="birth-date" type="text" class="form-control" placeholder="Data urodzenia YYYY-MM-DD" required>
                     </div>
                 </div>  
                 <div class="form-group">
                     <div class="col-sm-5">
-                        <input name="birth-place" type="text" class="form-control" placeholder="Miejsce urodzenia" required>
+                        <input value="{{profile.birth_place}}" name="birth-place" type="text" class="form-control" placeholder="Miejsce urodzenia" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-2">
-                        <input name="document-series" type="text" class="form-control" placeholder="Seria" required>
+                        <input value="{{profile.document_series}}" name="document-series" type="text" class="form-control" placeholder="Seria" required>
                     </div>
                     <div class="col-sm-3">
-                        <input name="document-number" type="text" class="form-control" placeholder="Numer dokumentu" required>
+                        <input value="{{profile.document_number}}" name="document-number" type="text" class="form-control" placeholder="Numer dokumentu" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -63,40 +63,36 @@
                 <h4>Dane kontaktowe (nieobowiązkowe)</h4>
                 <div class="form-group">
                     <div class="col-sm-5">
-                        <input name="email" type="email" class="form-control" placeholder="Email">
+                        <input value="{{emails.[0].address}}" name="email" type="email" class="form-control" placeholder="Email">
                     </div>
                 </div>
                <div class="form-group">
                     <div class="col-sm-5">
-                        <input name="phone" type="text" class="form-control" placeholder="Numer telefonu">
+                        <input value="{{profile.contact.phone}}" name="phone" type="text" class="form-control" placeholder="Numer telefonu">
                     </div>
                 </div>
 
                 <h4>Dane osoby do kontaktu w razie nagłego wypadku</h4>
                 <div class="form-group">
                     <div class="col-sm-5">
-                        <input name="trusted-firstname" type="text" class="form-control" placeholder="Imię" required>
+                        <input value="{{profile.trusted.firstname}}" name="trusted-firstname" type="text" class="form-control" placeholder="Imię" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-5">
-                        <input name="trusted-lastname" type="text" class="form-control" placeholder="Nazwisko" required>
+                        <input value="{{profile.trusted.lastname}}" name="trusted-lastname" type="text" class="form-control" placeholder="Nazwisko" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-5">
-                        <input name="trusted-phone" type="text" class="form-control" placeholder="Numer telefonu">
+                        <input value="{{profile.trusted.phone}}" name="trusted-phone" type="text" class="form-control" placeholder="Numer telefonu">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-5">
                         <button type="submit" class="btn btn-primary">
-                        {{#if logged}}
-                            Dodaj pacjenta &raquo;
-                        {{else}}
-                            Zarejestruj się &raquo;
-                        {{/if}}
+                        Zatwierdź zmiany &raquo;
                         </button>
                     </div>
                 </div>

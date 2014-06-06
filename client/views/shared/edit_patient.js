@@ -46,21 +46,24 @@ Template.editPatient.rendered = function () {
 Template.editPatient.events({
 	'submit form': function (e) {
 		e.preventDefault();
-		// pesel, password and gender have to be correct
-		if ($('[name=pesel], [name=password], [name=gender]').valid()) {
+		// pesel, password and gender have to be correct, but password can be empty - no change
+		if ($('[name=pesel], [name=password], [name=gender]').valid() || $('[name=password]').val() === '') {
 			if ($('.form-horizontal').valid() || confirm('Niektóre dane są błędne, czy mimo to dodać?')) {
 				$('label.error').remove();
 				var userData = {
-					username: $(e.target).find('[name=pesel]').val(),
-					password: $(e.target).find('[name=password]').val(),
+					username: $('[name=pesel]').val(),
 					profile: {
-						gender: $(e.target).find('[name=gender]').val(),
+						gender: $('[name=gender]').val(),
 						role: roles.Patient	
 					}
 				};
 
+
+				if ($('[name=password]').val() !== '') {
+					userData.password = $('[name=password]').val();
+				}
 				if ($('[name=email]').valid()) {
-					userData.email = $(e.target).find('[name=email]').val()
+					userData['emails.0.address'] = $(e.target).find('[name=email]').val()
 				}
 
 				var loginInputs = '[name=pesel],[name=password],[name=email],[name=password-confirm]';
@@ -86,18 +89,9 @@ Template.editPatient.events({
 						userData.profile.trusted[inputs[i].name.split('-')[1]] = inputs[i].value;
 					}
 				}	
-				Meteor.call('addNewUser', userData, function (error, result) {
-					if (Meteor.userId()) {
-						notify(error, result);
-					}
-					else {
-						Meteor.loginWithPassword(userData.username, userData.password, function (error) {
-							if (error) {
-								notify(errors.wrongLogin);	
-							}
-						});
-					}
-				});	
+				Meteor.call('editUser', userData, function(error, result) {
+					notify(error, result);	
+				});
 			}
 		}
 
@@ -105,7 +99,10 @@ Template.editPatient.events({
 });
 
 Template.editPatient.helpers({
-	gender: function () {
+	gender: function() {
 		return genders;
+	},
+	selectGender: function(gender) {
+		return (this.profile.gender == gender) ? 'selected' : null; 
 	}
 });

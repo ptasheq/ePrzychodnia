@@ -11,14 +11,14 @@
 </template>
 
 <template name="patientHeader">
-  {{#if isInRole getRoles.Patient}}
+  {{#if isInRole getRoles.AnyPatient}}
   <ul class="nav navbar-nav">
     <li class="{{routeIs 'patientIndex'}}"><a href="{{pathFor 'patientIndex'}}">Strona główna</a></li>
-    <li class="dropdown {{routeIs 'patientContact'}} {{routeIs 'patientVisit'}}">
+    <li class="dropdown {{routeIs 'editPatient'}} {{routeIs 'patientVisit'}}">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Możliwe działania <b class="caret"></b></a>
       <ul class="dropdown-menu">
-        <li><a href="{{pathFor 'patientContact'}}">Uzupełnij dane kontaktowe</a></li>
-        <li><a href="{{pathFor 'patientVisit'}}">Zarządzaj wizytami</a></li>
+        <li><a href="{{pathFor 'editPatient'}}">Zmień swoje dane</a></li>
+        {{#if isInRole getRoles.Patient}}<li><a href="{{pathFor 'patientVisit'}}">Zarządzaj wizytami</a></li>{{/if}}
       </ul>
     </li>
   </ul>

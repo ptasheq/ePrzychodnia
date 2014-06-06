@@ -41,7 +41,7 @@ Meteor.methods({
 			patient: currentUser._id, 
 			physician: physicianId, 
 			confirmed: false,
-			smssent: false;
+			smssent: false
 		}, function(error, result) {
 			if (error) {
 				throw new Meteor.Error(401, errors.visitAsk);

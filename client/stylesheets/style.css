@@ -88,3 +88,7 @@ a.remove {
 .login-buttons #login {
     margin: 0px 0px 10px;
 }
+
+tr.notconfirmed {
+    background-color: #ffefef;   
+}

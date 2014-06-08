@@ -33,18 +33,18 @@ Meteor.publish('users', function(role) {
 	}
 
 	if (Roles.userIsInRole(this.userId, [roles.Admin])) {
-		return Users.find({roles: role}, {services: 0});	
+		return Users.find({roles: {$in: role}}, {services: 0});	
 	}
 
 	// as a patient we have only access to limited staff data 
-	if (Roles.userIsInRole(this.userId, [roles.Patient]) && role.indexOf(roles.Staff) > -1) {
-		return Users.find({roles: role}, {_id: 1, 'profile.firstname': 1, 
+	if (Roles.userIsInRole(this.userId, [roles.Patient]) && role[0].indexOf(roles.Staff) > -1) {
+		return Users.find({roles: {$in: role}}, {_id: 1, 'profile.firstname': 1, 
 		                  'profile.lastname': 1, 'profile.profession': 1});
 	}
 
 	// we have to have admin or staff privilege to find patients
-	if (Roles.userIsInRole(this.userId, [roles.Admin, roles.Staff, roles.Office]) && role.indexOf(roles.Patient) > -1) {
-		return Users.find({roles: role}, {services: 0});	
+	if (Roles.userIsInRole(this.userId, [roles.Admin, roles.Staff, roles.Office])) {
+		return Users.find({roles: {$in: role}}, {services: 0});	
 	}
 	throw new Meteor.Error(401, errors.privileges);
 });
@@ -122,6 +122,7 @@ Meteor.methods({
 
 		// cleaning object from unnecessary fields
 		user = allowedFields[currentRole](user);
+		console.log(user);
 
 		var userData = _.extend(_.pick(user, 'emails.0.address'), user.profile);
 
@@ -138,6 +139,20 @@ Meteor.methods({
 			}
 		});
 		return successes.editUser;
+	},
+	confirmUser: function(id) {
+		var currentUser = Meteor.user();
+		if (!currentUser || !Roles.userIsInRole(currentUser, [roles.Admin, roles.Office, roles.Staff])) {
+			throw new Meteor.Error(401, errors.privileges);
+		}
+
+		if (!Roles.userIsInRole(id, [roles.PatientTobe])) {
+			throw new Meteor.Error(401, errors.wrongData);
+		}
+		console.log('ok');
+		console.log(id);
+		Roles.setUserRoles(id, [roles.Patient]);
+
 	},
 	deleteUser: function(id) {
 		var currentUser = Meteor.user();

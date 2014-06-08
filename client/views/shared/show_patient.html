@@ -10,6 +10,12 @@
 			<div class="form-group">
 				<div class="col-sm-5"><input name="pesel" class="form-control" type="text" placeholder="PESEL"></div>
 			</div>	
+			<div class="form-group">
+				<div class="col-sm-5"><input name="lastname" class="form-control" type="text" placeholder="Nazwisko"></div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-5"><input name="age" class="form-control" type="text" placeholder="Wiek"></div>
+			</div>
 			<button class="btn btn-primary" type="submit" disabled>Wyszukaj pacjenta &raquo;</button>
 		</form>
 		<div class="patientsSearch">
@@ -44,7 +50,7 @@
 </template>
 
 <template name="patientSearch">
-	<tr>
+	<tr class="{{notconfirmed}}">
 		<td>{{_id}}</td>
 		<td>{{profile.firstname}}</td>
 		<td>{{profile.lastname}}</td>
@@ -55,7 +61,11 @@
 		<td>{{profile.document_series}} {{profile.document_number}}</td>
 		<td><a role="button" data-content="Telefon: {{profile.contact.phone}} <br> Email: {{email}}" title="" data-toggle="popover" class="extend btn btn-default" href="#" data-original-title="Dane kontaktowe">Rozwiń</a></td>
 		<td><a role="button" data-content="Imię: {{profile.trusted.firstname}} <br> Nazwisko: {{profile.trusted.lastname}}<br>Telefon: {{profile.trusted.phone}}" title="" data-toggle="popover" class="btn btn-default extend" href="#" data-original-title="Kogo poinformować?">Rozwiń</a></td>
-		<td><a href="{{pathFor 'showHistory' _id=this._id role='staff'}}" class="btn btn-default">Historia &raquo;</a></td>
+		{{#if notconfirmed}}
+			<td><a class="confirm btn btn-default" href="#">Potwierdź &raquo;</a></td>
+		{{else}}
+			<td><a href="{{pathFor 'showHistory' _id=this._id role='staff'}}" class="btn btn-default">Historia &raquo;</a></td>
+		{{/if}}
 
 	</tr>
 </template>

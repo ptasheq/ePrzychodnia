@@ -62,8 +62,8 @@ Template.editPatient.events({
 				if ($('[name=password]').val() !== '') {
 					userData.password = $('[name=password]').val();
 				}
-				if ($('[name=email]').valid()) {
-					userData['emails.0.address'] = $(e.target).find('[name=email]').val()
+				if ($('[name=email]').valid() && $('[name=email]').val() != '') {
+					userData['emails'] = $('[name=email]').val()
 				}
 
 				var loginInputs = '[name=pesel],[name=password],[name=email],[name=password-confirm]';
@@ -89,7 +89,8 @@ Template.editPatient.events({
 						userData.profile.trusted[inputs[i].name.split('-')[1]] = inputs[i].value;
 					}
 				}	
-				Meteor.call('editUser', userData, function(error, result) {
+				var id = (Meteor.userId() === this._id) ? null : this._id;
+				Meteor.call('editUser', userData, id, function(error, result) {
 					notify(error, result);	
 				});
 			}
@@ -103,6 +104,11 @@ Template.editPatient.helpers({
 		return genders;
 	},
 	selectGender: function(gender) {
-		return (this.profile.gender == gender) ? 'selected' : null; 
+		if (this.profile) {
+			return (this.profile.gender == gender) ? 'selected' : null; 
+		}
+	},
+	getId: function() {
+		return this._id;
 	}
 });

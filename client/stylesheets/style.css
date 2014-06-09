@@ -68,6 +68,10 @@ input.datepicker {
     color: #FFFFFF;
 }
 
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;    
+}
+
 a.remove {
 	margin: 0px 0px 0px 4px;
 }

@@ -1,5 +1,5 @@
 var allowedFields = {};
-allowedFields[roles.Patient] = allowedFields[roles.PatientTobe] = function(data) {
+allowedFields[roles.Patient] = allowedFields[roles.PatientTobe] = function(data, editting) {
 	if (data.profile.contact) {
 		if (Object.getOwnPropertyNames(data.profile.contact).length > 0) {
 			data.profile.contact = _.pick(data.profile.contact, ['phone']);
@@ -19,13 +19,20 @@ allowedFields[roles.Patient] = allowedFields[roles.PatientTobe] = function(data)
 	data.profile = _.pick(data.profile, 
 	                      ['birth_date', 'birth_place', 'contact', 'document_number', 
 	                      'document_series',  'firstname', 'gender', 'lastname', 'trusted']);
-	return _.pick(data, ['username', 'password', 'emails.0.address', 'profile']);
+	return editting ? _.pick(data, ['username', 'password', 'emails', 'profile']) : _.pick(data, ['username', 'password', 'email', 'profile']);
 };
+
+allowedFields[roles.Staff] = function(data) {
+	if (Object.getOwnPropertyNames(data.profile).length > 0) {
+		data.profile = _.pick(data.profile, ['firstname', 'lastname', 'profession']);
+	}
+	return _.pick(data, ['email', 'password', 'profile']);
+}
 
 Meteor.publish('users', function(role) {
 
 	if (!this.userId) {
-		throw new Meteor.Error(401,errors.login);
+		throw new Meteor.Error(401, errors.login);
 	}
 
 	if(!role) {
@@ -64,14 +71,17 @@ Meteor.methods({
 			throw new Meteor.Error(401, errors.admin);
 		}	
 
-		// adding admin or office is forbidden
-		if ([roles.Admin, roles.Office].indexOf(user.profile.role) > -1) {
-			throw new Meteor.Error(401, errors.privleges);
+		// adding admin or office is forbidden and patient can't do anything
+		if ([roles.Admin, roles.Office].indexOf(user.profile.role) > -1 || Roles.userIsInRole(currentUser, [roles.Patient, roles.PatientTobe])) {
+			throw new Meteor.Error(401, errors.privileges);
 		}
 
 		var currentRole = user.profile.role;
 
 		// cleaning object from unnecessary fields
+		if (!allowedFields[currentRole]) {
+			throw new Meteor.Error(401, errors.wrongData);
+		}
 		user = allowedFields[currentRole](user);
 
 		var userData = _.extend(_.pick(user, 'email'), user.profile);
@@ -97,10 +107,12 @@ Meteor.methods({
 
 		return (currentRole === roles.Staff) ? successes.addStaff : successes.addPatient;
 	},
-	editUser: function(user) {
+	editUser: function(user, id) {
 		var currentUser = Meteor.user();
 
-		console.log(user);
+		if (!id) {
+			id = currentUser._id;
+		}
 
 		// checking correct object structure
 		if (!user || !user.profile) {
@@ -109,22 +121,26 @@ Meteor.methods({
 
 		// we have to have admin privilege to edit staff members
 		if (!Roles.userIsInRole(currentUser, [roles.Admin])
-		    && user.profile.role === roles.Staff) {
+		    && Roles.userIsInRole(id, [roles.Staff])) {
 			throw new Meteor.Error(401, errors.admin);
 		}	
 
 		// editing admin or office is forbidden
-		if ([roles.Admin, roles.Office].indexOf(user.profile.role) > -1) {
-			throw new Meteor.Error(401, errors.privleges);
+		if (Roles.userIsInRole(id, [roles.Admin, roles.Office])) {
+			throw new Meteor.Error(401, errors.privileges);
+		}
+
+		// patients can only edit themselves
+		if (Roles.userIsInRole(currentUser, [roles.Patient, roles.PatientTobe]) && id != currentUser._id) {
+			throw new Meteor.Error(401, errors.privileges);
 		}
 
 		var currentRole = user.profile.role;
 
 		// cleaning object from unnecessary fields
 		user = allowedFields[currentRole](user);
-		console.log(user);
 
-		var userData = _.extend(_.pick(user, 'emails.0.address'), user.profile);
+		var userData = _.extend(_.pick(user, 'emails'), user.profile);
 
 		for (var item in userData) {
 			// we have to check if we receive correct data from client, 
@@ -133,11 +149,19 @@ Meteor.methods({
 				throw new Meteor.Error(401, errors.incorrectForm);
 			}
 		}
-		Meteor.users.update({_id: currentUser._id}, {$set: user}, function(error) {
-			if (error) {
-				throw new Meteor.Error(401, errors.editUser);
-			}
-		});
+
+		if (user['emails']) {
+			user['emails'] = [{address: user['emails'], verified: 'false'}]
+		}
+
+		if (!Meteor.users.update({_id: id}, {$set: user})) {
+			throw new Meteor.Error(401, errors.editUser);
+		}
+
+		if (Roles.userIsInRole(currentUser, [roles.Patient])) {
+			Roles.setUserRoles(currentUser._id, [roles.PatientTobe]);
+		}
+
 		return successes.editUser;
 	},
 	confirmUser: function(id) {
@@ -149,8 +173,6 @@ Meteor.methods({
 		if (!Roles.userIsInRole(id, [roles.PatientTobe])) {
 			throw new Meteor.Error(401, errors.wrongData);
 		}
-		console.log('ok');
-		console.log(id);
 		Roles.setUserRoles(id, [roles.Patient]);
 
 	},

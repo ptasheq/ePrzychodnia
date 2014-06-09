@@ -7,20 +7,18 @@
                     Możesz teraz wybrać jedną z opcji za pomocą przycisków lub na pasku z linkami u góry strony.<br><br>
                     {{#if isInRole getRoles.PatientTobe}}
                         <strong>Ponieważ Twoje konto jest niepotwierdzone, nie możesz umówić się na wizytę.</strong>
-                    {{else}} {{#unless hasContactData}}
-                        <strong>Aby móc umówić się na wizytę musisz uzupełnić swoje <a href="{{pathFor 'editPatient'}}">dane kontaktowe</a></strong>
-                    {{/unless}}{{/if}}
+                    {{/if}}
                 </p>
             </div>
             <div class="col-md-5">
                 <div class="col-sm-10">
-                    {{#if hasContactData}}
+                    {{#unless isInRole getRoles.PatientTobe}}
                         <a style="margin: 15px 0px 15px; width: 100%" href="{{pathFor 'editPatient'}}" class="btn btn-lg btn-info">Zmień swoje dane &raquo;</a> 
                         {{#if isInRole getRoles.Patient}}<a style="width: 100%" href="{{pathFor 'patientVisit'}}" class="btn btn-lg btn-primary">Zarządzaj wizytami &raquo;</a>{{/if}}
                     {{else}}
                         <a style="margin: 15px 0px 15px; width: 100%" href="{{pathFor 'editPatient'}}" class="btn btn-lg btn-primary">Zmień swoje dane &raquo;</a> 
                         <a style="width: 100%" href="{{pathFor 'patientVisit'}}" class="btn btn-lg btn-primary" disabled>Zarządzaj wizytami &raquo;</a> 
-                    {{/if}}
+                    {{/unless}}
                 </div>
             </div>
     	

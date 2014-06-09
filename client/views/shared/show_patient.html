@@ -38,7 +38,6 @@
 					<th>Miejsce urodzenia</th>
 					<th>Dane dokumentu</th>
 					<th>Dane kontaktowe</th>
-					<th>Kogo poinformować?</th>
 					<th>Akcje</th>
 				</tr>	
 				{{#each patients}}
@@ -59,12 +58,16 @@
 		<td>{{age}}</td>
 		<td>{{profile.birth_place}}</td>
 		<td>{{profile.document_series}} {{profile.document_number}}</td>
-		<td><a role="button" data-content="Telefon: {{profile.contact.phone}} <br> Email: {{email}}" title="" data-toggle="popover" class="extend btn btn-default" href="#" data-original-title="Dane kontaktowe">Rozwiń</a></td>
-		<td><a role="button" data-content="Imię: {{profile.trusted.firstname}} <br> Nazwisko: {{profile.trusted.lastname}}<br>Telefon: {{profile.trusted.phone}}" title="" data-toggle="popover" class="btn btn-default extend" href="#" data-original-title="Kogo poinformować?">Rozwiń</a></td>
+		<td><a role="button" data-content="Telefon: {{profile.contact.phone}} <br> Email: {{email}}<br><br><b>Kogo zawiadomić?</b> <br>Imię: {{profile.trusted.firstname}} <br> Nazwisko: {{profile.trusted.lastname}}<br>Telefon: {{profile.trusted.phone}}" title="" data-toggle="popover" class="extend btn btn-default" href="#" data-original-title="Dane kontaktowe">Rozwiń</a></td>
 		{{#if notconfirmed}}
 			<td><a class="confirm btn btn-default" href="#">Potwierdź &raquo;</a></td>
 		{{else}}
-			<td><a href="{{pathFor 'showHistory' _id=this._id role='staff'}}" class="btn btn-default">Historia &raquo;</a></td>
+			<td>
+				<div class="btn-group">
+					<a href="{{pathFor 'showHistory' _id=this._id role='staff'}}" class="btn btn-default">Historia &raquo;</a>
+					<a href="{{pathFor 'editPatient' _id=this._id role='staff'}}" class="btn btn-default">Edytuj &raquo;</a>
+				</div>
+			</td>
 		{{/if}}
 
 	</tr>

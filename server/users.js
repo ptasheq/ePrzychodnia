@@ -43,14 +43,20 @@ Meteor.publish('users', function(role) {
 		return Users.find({roles: {$in: role}}, {services: 0});	
 	}
 
+
 	// as a patient we have only access to limited staff data 
-	if (Roles.userIsInRole(this.userId, [roles.Patient]) && role[0].indexOf(roles.Staff) > -1) {
-		return Users.find({roles: {$in: role}}, {_id: 1, 'profile.firstname': 1, 
-		                  'profile.lastname': 1, 'profile.profession': 1});
+	if (Roles.userIsInRole(this.userId, [roles.Patient])) {
+		if (role[0].indexOf(roles.Staff) > -1) {
+			return Users.find({roles: {$in: [roles.Staff]}}, {_id: 1, 'profile.firstname': 1, 
+			                  'profile.lastname': 1, 'profile.profession': 1});
+		}
+		if (role[0].indexOf(roles.Patient) > -1) {
+			return Users.find({_id: this.userId});
+		}
 	}
 
 	// we have to have admin or staff privilege to find patients
-	if (Roles.userIsInRole(this.userId, [roles.Admin, roles.Staff, roles.Office])) {
+	if (Roles.userIsInRole(this.userId, [roles.Staff, roles.Office])) {
 		return Users.find({roles: {$in: role}}, {services: 0});	
 	}
 	throw new Meteor.Error(401, errors.privileges);

@@ -14,7 +14,8 @@ Template.showHistory.events({
 });
 
 Template.showHistory.visits = function() {
-	return Visits.find();
+	var query = Visits.find({date: {$lte: new Date()}});
+	return (query.count() > 0) ? query : null; 
 }
 
 Template.showHistory.getData = function(data) {

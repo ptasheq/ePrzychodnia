@@ -29,14 +29,12 @@
 		<table id="patientData" class="table table-striped table-bordered">
 			<tbody>
 				<tr>
-					<th>Identyfikator</th>
 					<th>Imię</th>
 					<th>Nazwisko</th>
 					<th>PESEL</th>
 					<th>Płeć</th>
 					<th>Wiek</th>
-					<th>Miejsce urodzenia</th>
-					<th>Dane dokumentu</th>
+					<th>Dane dodatkowe</th>
 					<th>Dane kontaktowe</th>
 					<th>Akcje</th>
 				</tr>	
@@ -50,25 +48,31 @@
 
 <template name="patientSearch">
 	<tr class="{{notconfirmed}}">
-		<td>{{_id}}</td>
 		<td>{{profile.firstname}}</td>
 		<td>{{profile.lastname}}</td>
 		<td>{{username}}</td>
 		<td>{{gender}}</td>
 		<td>{{age}}</td>
-		<td>{{profile.birth_place}}</td>
-		<td>{{profile.document_series}} {{profile.document_number}}</td>
+		<td><a role="button" data-content="Identyfikator: {{_id}}<br> Dane dokumentu: {{profile.document_series}} {{profile.document_number}}<br> Miejsce urodzenia: {{profile.birth_place}}" title="" data-toggle="popover" class="extend btn btn-default" href="#" data-original-title="Dane dodatkowe">Rozwiń</a></td>
 		<td><a role="button" data-content="Telefon: {{profile.contact.phone}} <br> Email: {{email}}<br><br><b>Kogo zawiadomić?</b> <br>Imię: {{profile.trusted.firstname}} <br> Nazwisko: {{profile.trusted.lastname}}<br>Telefon: {{profile.trusted.phone}}" title="" data-toggle="popover" class="extend btn btn-default" href="#" data-original-title="Dane kontaktowe">Rozwiń</a></td>
 		{{#if notconfirmed}}
-			<td><a class="confirm btn btn-default" href="#">Potwierdź &raquo;</a></td>
+			<td><a class="confirm-visit btn btn-default" href="#">Potwierdź &raquo;</a></td>
 		{{else}}
 			<td>
 				<div class="btn-group">
-					<a href="{{pathFor 'showHistory' _id=this._id role='staff'}}" class="btn btn-default">Historia &raquo;</a>
-					<a href="{{pathFor 'editPatient' _id=this._id role='staff'}}" class="btn btn-default">Edytuj &raquo;</a>
+					<a href="{{pathFor 'showHistory' _id=this._id role=getRoles.Staff}}" class="btn btn-default">Historia &raquo;</a>
+					<a href="{{pathFor 'editPatient' _id=this._id role=getRoles.Staff}}" class="btn btn-default">Edytuj &raquo;</a>
+					<a id="{{_id}}" class="btn btn-default visit">Umów</a>
 				</div>
 			</td>
 		{{/if}}
-
 	</tr>
+	<div style="display: none" id="visitdataWrapper">
+		<form class="form form-horizontal">
+			<input type="text" name="time" class="form-control" placeholder="Wprowadź godzinę hh:mm">
+			<input type="text" name="visit-date" class="form-control datepicker" required placeholder="Wybierz datę">
+			<input type="text" class="form-control typeahead" name="reason" placeholder="Powód wizyty" autocomplete="off" data-source="icd10">
+			<button class="btn btn-sm btn-success confirm">Potwierdź &raquo;</button>
+		</form>
+	</div>
 </template>

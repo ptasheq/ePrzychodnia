@@ -19,7 +19,10 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">Możliwe działania <b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><a href="{{pathFor 'editPatient'}}">Zmień swoje dane</a></li>
-        {{#if isInRole getRoles.Patient}}<li><a href="{{pathFor 'patientVisit'}}">Zarządzaj wizytami</a></li>{{/if}}
+        {{#if isInRole getRoles.Patient}}
+          <li><a href="{{pathFor 'patientVisit'}}">Zarządzaj wizytami</a></li>
+          <li><a href="{{pathFor 'showHistory' _id=currentUser._id}}">Przeglądaj historię</a></li>
+        {{/if}}
       </ul>
     </li>
   </ul>
@@ -70,13 +73,13 @@
   {{#if isInRole getRoles.Staff}} 
   <ul class="nav navbar-nav">
     <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Wizyty <b class="caret"></b></a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Zarządzaj wizytami <b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><a href="{{pathFor 'confirmVisits'}}">Potwierdź wizyty</a></li>
         <li><a href="{{pathFor 'viewVisits'}}">Przeglądaj wizyty</a></li>
       </ul>
     </li>
-    <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pacjenci <b class="caret"></b></a>
+    <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Zarządzaj pacjentami <b class="caret"></b></a>
       <ul class="dropdown-menu">
         <li><a href="{{pathFor 'showPatient' role=getRoles.Staff}}">Zmień/wyszukaj dane pacjenta</a></li>
       </ul>
@@ -98,7 +101,15 @@
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Zarządzaj pacjentami<b class="caret"></b></a>
         <ul class="dropdown-menu">
+          <li><a href="{{pathFor 'addPatient' role=getRoles.Staff}}">Dodaj pacjenta</a></li>
+          <li><a href="{{pathFor 'showPatient' role=getRoles.Staff}}">Zmień/wyszukaj dane pacjenta</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Zarządzaj wizytami <b class="caret"></b></a>
+        <ul class="dropdown-menu">
           <li><a href="{{pathFor 'confirmVisits'}}">Potwierdź wizyty</a></li>
+          <li><a href="{{pathFor 'viewVisits'}}">Przeglądaj wizyty</a></li>
         </ul>
       </li>
     </ul>

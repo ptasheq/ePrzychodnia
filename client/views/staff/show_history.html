@@ -3,6 +3,9 @@
 		<div class="page-header">
 			<h1>Historia pacjenta<br><small>{{profile.firstname}} {{profile.lastname}}</small></h1>
 		</div>
+		{{#unless visits}}
+			<p>Aktualnie pacjent nie posiada żadnej historii</p>
+		{{else}}
 		{{#each visits}}
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -50,5 +53,6 @@
 				</div>
 			</div>
 		{{/each}}
+		{{/unless}}
 	</div>
 </template>

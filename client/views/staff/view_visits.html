@@ -1,10 +1,31 @@
 <template name="viewVisits">
 	<div class="content">
 		<div class="page-header">
-			<h1>Wizyty w wybranym dniu</h1>
+			<h1>Przeglądaj wizyty w wybranym dniu</h1>
 		</div>
-		<div class="col-sm-4 datepicker"></div>
-		<div class="col-sm-8 viewVisitsResults"></div>	
+		{{#if isInRole getRoles.Office}}
+			<form id="choosePhysician" class="form-horizontal">
+			<div class="form-group">
+				<div class="col-sm-5">
+					<select style="color: #919191" class="form-control" name="physician">
+						<option style="color: #aaaaaa" value="-1">Wybierz lekarza</option>
+						{{#each physicians}}
+							{{> visitPhysicians}}
+						{{/each}}
+                    </select>
+				</div>
+			</div>
+			<button class="btn btn-primary" type="submit" disabled>Wyświetl listę wizyt &raquo;</button>
+			</form>
+			<br>
+			{{#if this._id}}
+				<div class="col-sm-4 datepicker-container"></div>
+				<div class="col-sm-8 viewVisitsResults"></div>	
+			{{/if}}
+		{{else}}
+			<div class="col-sm-4 datepicker-container"></div>
+			<div class="col-sm-8 viewVisitsResults"></div>	
+		{{/if}}
 	</div>
 </template>
 
@@ -26,7 +47,7 @@
 					<td>{{profile.firstname}}</td>
 					<td>{{profile.lastname}}</td>
 					<td>{{age}}</td>
-					<td><a class="btn btn-sm btn-default">Historia pacjenta &raquo;</a></td>
+					<td><a href="{{pathFor 'showHistory' role=getRoles.Staff _id=_id}}" class="btn btn-sm btn-default">Historia pacjenta &raquo;</a></td>
 				{{/with}}
 				<td><a href="{{pathFor 'editVisits'}}" class="btn btn-sm btn-default fill">Uzupełnij &raquo;</a></td>
 			</tr>
